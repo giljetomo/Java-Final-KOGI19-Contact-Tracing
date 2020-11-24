@@ -37,13 +37,25 @@ public class MainScreen extends JFrame {
 	private JLabel lblPassword;
 	private JButton btnAddNewAdmin;
 	private JButton btnEnterTheSystem;
-	private JButton btnChangePassword;
+	private JButton btnChangePasswordSU;
 	private JButton btnLogout;
 	private JPasswordField tfPassword;
 	private JButton btnEnterTheSystem_1;
-	private JButton btnChangePassword_1;
+	private JButton btnChangePasswordRU;
 	private JButton btnLogout_1;
 	private JPanel panelRegularUser;
+	private JLabel lblPassword_1;
+	private JPasswordField pf_NewPassword;
+	private JLabel lblNewLabel_1;
+	private JButton btnCancelChangePassword;
+	private JButton btnLogIn_1;
+	private JPanel panelChangePasswordUC12;
+	private JLabel lblPassword_2;
+	private JLabel lblPassword_3;
+	private JPasswordField pf_newRetypedPassword;
+	private JPasswordField pf_OldPassword;
+	private String userType;
+	private String username;
 
 	/**
 	 * Launch the application.
@@ -119,13 +131,15 @@ public class MainScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//remember to separate login for superuser and regular
 				dbhandler = DatabaseHandler.getInstance();
-				String userType = dbhandler.validAdminUser(tfUserName.getText(), String.valueOf(tfPassword.getPassword()));
+				username = tfUserName.getText();
+				userType = dbhandler.validAdminUser(username, String.valueOf(tfPassword.getPassword()));
 				if(!Objects.isNull(userType)) {
 					JOptionPane.showMessageDialog(null, "Login Successful!", "Information", JOptionPane.INFORMATION_MESSAGE);
-					if(userType.equalsIgnoreCase("s"))
+					if(userType.equalsIgnoreCase("s")) {
 						switchPanel(panelSuperUserUC1); //superUser login
-					else
+					} else {
 						switchPanel(panelRegularUser);  //regularUser login
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Invalid credentials", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
@@ -188,8 +202,16 @@ public class MainScreen extends JFrame {
 		btnEnterTheSystem = new JButton("System Portal");
 		btnEnterTheSystem.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
-		btnChangePassword = new JButton("Change Password");
-		btnChangePassword.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		btnChangePasswordSU = new JButton("Change Password");
+		btnChangePasswordSU.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelChangePasswordUC12);	
+				pf_OldPassword.setText(null);
+				pf_NewPassword.setText(null);
+				pf_newRetypedPassword.setText(null);
+			}
+		});
+		btnChangePasswordSU.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
 		btnLogout = new JButton("Logout");
 		btnLogout.addActionListener(new ActionListener() {
@@ -206,7 +228,7 @@ public class MainScreen extends JFrame {
 					.addGroup(gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnAddNewAdmin, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
 						.addComponent(btnEnterTheSystem, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnChangePassword, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnChangePasswordSU, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnLogout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(119))
 		);
@@ -218,7 +240,7 @@ public class MainScreen extends JFrame {
 					.addGap(18)
 					.addComponent(btnEnterTheSystem, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(btnChangePassword, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnChangePasswordSU, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(104))
@@ -231,8 +253,16 @@ public class MainScreen extends JFrame {
 		btnEnterTheSystem_1 = new JButton("System Portal");
 		btnEnterTheSystem_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
-		btnChangePassword_1 = new JButton("Change Password");
-		btnChangePassword_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		btnChangePasswordRU = new JButton("Change Password");
+		btnChangePasswordRU.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelChangePasswordUC12);
+				pf_OldPassword.setText(null);
+				pf_NewPassword.setText(null);
+				pf_newRetypedPassword.setText(null);
+			}
+		});
+		btnChangePasswordRU.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
 		btnLogout_1 = new JButton("Logout");
 		btnLogout_1.addActionListener(new ActionListener() {
@@ -248,7 +278,7 @@ public class MainScreen extends JFrame {
 					.addContainerGap(144, Short.MAX_VALUE)
 					.addGroup(gl_panelRegularUser.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnEnterTheSystem_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnChangePassword_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnChangePasswordRU, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnLogout_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(126))
 		);
@@ -258,12 +288,135 @@ public class MainScreen extends JFrame {
 					.addContainerGap(182, Short.MAX_VALUE)
 					.addComponent(btnEnterTheSystem_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(btnChangePassword_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnChangePasswordRU, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnLogout_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(105))
 		);
 		panelRegularUser.setLayout(gl_panelRegularUser);
+		
+		panelChangePasswordUC12 = new JPanel();
+		layeredPane.add(panelChangePasswordUC12, "name_55635682621000");
+		
+		lblPassword_1 = new JLabel("New Password");
+		lblPassword_1.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
+		
+		pf_NewPassword = new JPasswordField();
+		
+		lblNewLabel_1 = new JLabel("Old Password");
+		lblNewLabel_1.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
+		
+		btnCancelChangePassword = new JButton("CANCEL");
+		btnCancelChangePassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanelByUserType(userType);
+			}
+		});
+		btnCancelChangePassword.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		btnLogIn_1 = new JButton("CHANGE");
+		btnLogIn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+								
+				dbhandler = DatabaseHandler.getInstance();
+				String oldPassword = String.valueOf(pf_OldPassword.getPassword());
+				String newPassword = String.valueOf(pf_newRetypedPassword.getPassword());
+				
+				if(Objects.isNull(dbhandler.validAdminUser(username, oldPassword))) {
+					JOptionPane.showMessageDialog(null, "Invalid Old password!", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					if(String.valueOf(pf_NewPassword.getPassword()).equals(newPassword)) {
+						if(dbhandler.changePassword(username, oldPassword, newPassword)) {
+								JOptionPane.showMessageDialog(null, "Password changed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+								changePanelByUserType(userType);
+						} else
+							JOptionPane.showMessageDialog(null, "Try again!", "System Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Password mismatch!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				
+			}
+		});
+		btnLogIn_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		lblPassword_2 = new JLabel("Re-type");
+		lblPassword_2.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
+		
+		lblPassword_3 = new JLabel("New Password");
+		lblPassword_3.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
+		
+		pf_newRetypedPassword = new JPasswordField();
+		
+		pf_OldPassword = new JPasswordField();
+		GroupLayout gl_panelChangePasswordUC12 = new GroupLayout(panelChangePasswordUC12);
+		gl_panelChangePasswordUC12.setHorizontalGroup(
+			gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+					.addGap(97)
+					.addComponent(btnCancelChangePassword, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+					.addGap(29)
+					.addComponent(btnLogIn_1, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(75, Short.MAX_VALUE))
+				.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+					.addGap(39)
+					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addComponent(lblPassword_1, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(pf_NewPassword, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblPassword_3, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblPassword_2, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+							.addComponent(pf_newRetypedPassword, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+							.addComponent(pf_OldPassword, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)))
+					.addGap(37))
+		);
+		gl_panelChangePasswordUC12.setVerticalGroup(
+			gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+					.addGap(93)
+					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(lblPassword_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+							.addGap(7))
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addComponent(pf_OldPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addGap(32)
+							.addComponent(pf_NewPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)))
+					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblPassword_2, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+							.addGap(9)
+							.addComponent(lblPassword_3, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
+							.addGap(11)
+							.addComponent(pf_newRetypedPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
+					.addGap(49)
+					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnCancelChangePassword, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnLogIn_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+					.addGap(57))
+		);
+		panelChangePasswordUC12.setLayout(gl_panelChangePasswordUC12);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	protected void changePanelByUserType(String userType) {	
+		if(userType.equals("s")) 
+			switchPanel(panelSuperUserUC1);
+		else
+			switchPanel(panelRegularUser);	
 	}
 }
