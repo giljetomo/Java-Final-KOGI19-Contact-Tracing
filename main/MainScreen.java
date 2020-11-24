@@ -12,10 +12,12 @@ import kogi19.databaseScripts.DatabaseHandler;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.CardLayout;
 import javax.swing.JLabel;
@@ -23,6 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 public class MainScreen extends JFrame {
 
@@ -31,15 +34,16 @@ public class MainScreen extends JFrame {
 	private JPanel panelLogInUC0;
 	private JPanel panelSuperUserUC1;
 	private JLayeredPane layeredPane;
-	private JTextField tfUserName;
 	private JLabel lblPassword;
-	private JTextField tfPassword;
-	private JButton btnNewButton;
-	private JButton btnLogIn;
 	private JButton btnAddNewAdmin;
 	private JButton btnEnterTheSystem;
 	private JButton btnChangePassword;
 	private JButton btnLogout;
+	private JPasswordField tfPassword;
+	private JButton btnEnterTheSystem_1;
+	private JButton btnChangePassword_1;
+	private JButton btnLogout_1;
+	private JPanel panelRegularUser;
 
 	/**
 	 * Launch the application.
@@ -96,16 +100,13 @@ public class MainScreen extends JFrame {
 		JLabel lblNewLabel = new JLabel("Username");
 		lblNewLabel.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
 		
-		tfUserName = new JTextField();
+		JTextField tfUserName = new JTextField();
 		tfUserName.setColumns(10);
 		
 		lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
 		
-		tfPassword = new JTextField();
-		tfPassword.setColumns(10);
-		
-		btnNewButton = new JButton("EXIT");
+		JButton btnNewButton = new JButton("EXIT");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -113,24 +114,36 @@ public class MainScreen extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
-		btnLogIn = new JButton("LOG IN");
+		JButton btnLogIn = new JButton("LOG IN");
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//remember to separate login for superuser and regular
-				switchPanel(panelSuperUserUC1);
+				dbhandler = DatabaseHandler.getInstance();
+				String userType = dbhandler.validAdminUser(tfUserName.getText(), String.valueOf(tfPassword.getPassword()));
+				if(!Objects.isNull(userType)) {
+					JOptionPane.showMessageDialog(null, "Login Successful!", "Information", JOptionPane.INFORMATION_MESSAGE);
+					if(userType.equalsIgnoreCase("s"))
+						switchPanel(panelSuperUserUC1); //superUser login
+					else
+						switchPanel(panelRegularUser);  //regularUser login
+				} else {
+					JOptionPane.showMessageDialog(null, "Invalid credentials", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnLogIn.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		tfPassword = new JPasswordField();
 		GroupLayout gl_panelLogInUC0 = new GroupLayout(panelLogInUC0);
 		gl_panelLogInUC0.setHorizontalGroup(
 			gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelLogInUC0.createSequentialGroup()
 					.addContainerGap(65, Short.MAX_VALUE)
-					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panelLogInUC0.createSequentialGroup()
 							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE))
+							.addComponent(tfPassword))
 						.addGroup(gl_panelLogInUC0.createSequentialGroup()
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -152,8 +165,8 @@ public class MainScreen extends JFrame {
 						.addComponent(tfUserName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
-						.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
 					.addGap(53)
 					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
@@ -211,6 +224,46 @@ public class MainScreen extends JFrame {
 					.addGap(104))
 		);
 		panelSuperUserUC1.setLayout(gl_panelSuperUserUC1);
+		
+		panelRegularUser = new JPanel();
+		layeredPane.add(panelRegularUser, "name_54442385767900");
+		
+		btnEnterTheSystem_1 = new JButton("System Portal");
+		btnEnterTheSystem_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		btnChangePassword_1 = new JButton("Change Password");
+		btnChangePassword_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		btnLogout_1 = new JButton("Logout");
+		btnLogout_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelLogInUC0);
+			}
+		});
+		btnLogout_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		GroupLayout gl_panelRegularUser = new GroupLayout(panelRegularUser);
+		gl_panelRegularUser.setHorizontalGroup(
+			gl_panelRegularUser.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelRegularUser.createSequentialGroup()
+					.addContainerGap(144, Short.MAX_VALUE)
+					.addGroup(gl_panelRegularUser.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnEnterTheSystem_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnChangePassword_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnLogout_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(126))
+		);
+		gl_panelRegularUser.setVerticalGroup(
+			gl_panelRegularUser.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelRegularUser.createSequentialGroup()
+					.addContainerGap(182, Short.MAX_VALUE)
+					.addComponent(btnEnterTheSystem_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnChangePassword_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnLogout_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(105))
+		);
+		panelRegularUser.setLayout(gl_panelRegularUser);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
