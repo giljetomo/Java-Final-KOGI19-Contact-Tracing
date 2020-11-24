@@ -36,6 +36,10 @@ public class MainScreen extends JFrame {
 	private JTextField tfPassword;
 	private JButton btnNewButton;
 	private JButton btnLogIn;
+	private JButton btnAddNewAdmin;
+	private JButton btnEnterTheSystem;
+	private JButton btnChangePassword;
+	private JButton btnLogout;
 
 	/**
 	 * Launch the application.
@@ -52,14 +56,13 @@ public class MainScreen extends JFrame {
 			}
 		});
 	}
-	
-	public void switchPanel (JPanel panel) {
+
+	public void switchPanel(JPanel panel) {
 		layeredPane.removeAll();
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -111,6 +114,12 @@ public class MainScreen extends JFrame {
 		btnNewButton.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
 		btnLogIn = new JButton("LOG IN");
+		btnLogIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//remember to separate login for superuser and regular
+				switchPanel(panelSuperUserUC1);
+			}
+		});
 		btnLogIn.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		GroupLayout gl_panelLogInUC0 = new GroupLayout(panelLogInUC0);
 		gl_panelLogInUC0.setHorizontalGroup(
@@ -156,26 +165,50 @@ public class MainScreen extends JFrame {
 		panelSuperUserUC1 = new JPanel();
 		layeredPane.add(panelSuperUserUC1, "name_50771646590100");
 		
-		JButton btnNewButton_1 = new JButton("SUPER USER PANEL");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnAddNewAdmin = new JButton("Add New Admin");
+		btnAddNewAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAddNewAdmin.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		btnEnterTheSystem = new JButton("System Portal");
+		btnEnterTheSystem.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		btnChangePassword = new JButton("Change Password");
+		btnChangePassword.setFont(new Font("Bahnschrift", Font.BOLD, 20));
+		
+		btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelLogInUC0);
 			}
 		});
+		btnLogout.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		GroupLayout gl_panelSuperUserUC1 = new GroupLayout(panelSuperUserUC1);
 		gl_panelSuperUserUC1.setHorizontalGroup(
 			gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSuperUserUC1.createSequentialGroup()
-					.addGap(145)
-					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(148, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panelSuperUserUC1.createSequentialGroup()
+					.addContainerGap(124, Short.MAX_VALUE)
+					.addGroup(gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnAddNewAdmin, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+						.addComponent(btnEnterTheSystem, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnChangePassword, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnLogout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(119))
 		);
 		gl_panelSuperUserUC1.setVerticalGroup(
 			gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSuperUserUC1.createSequentialGroup()
-					.addGap(183)
-					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(241, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panelSuperUserUC1.createSequentialGroup()
+					.addContainerGap(111, Short.MAX_VALUE)
+					.addComponent(btnAddNewAdmin, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnEnterTheSystem, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnChangePassword, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(104))
 		);
 		panelSuperUserUC1.setLayout(gl_panelSuperUserUC1);
 		contentPane.setLayout(gl_contentPane);
