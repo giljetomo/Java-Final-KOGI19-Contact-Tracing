@@ -26,10 +26,10 @@ import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+//import com.jgoodies.forms.layout.FormLayout;
+//import com.jgoodies.forms.layout.ColumnSpec;
+//import com.jgoodies.forms.layout.RowSpec;
+//import com.jgoodies.forms.layout.FormSpecs;
 
 public class MainScreen extends JFrame {
 
@@ -60,6 +60,17 @@ public class MainScreen extends JFrame {
 	private JPasswordField pf_OldPassword;
 	private String userType;
 	private String username;
+	private JPanel panelAddNewAdmin3;
+	private JLabel lblPassword_4;
+	private JLabel lblNewLabel_2;
+	private JPasswordField passwordField;
+	private JTextField textField;
+	private JButton btnNewButton_1;
+	private JButton btnLogIn_2;
+	private JPasswordField passwordField_1;
+	private JPasswordField passwordField_2;
+	private JPasswordField passwordField_3;
+	private JPanel panelAddNewAdmin;
 
 	/**
 	 * Launch the application.
@@ -202,6 +213,7 @@ public class MainScreen extends JFrame {
 		btnAddNewAdmin = new JButton("Add New Admin");
 		btnAddNewAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelAddNewAdmin);
 			}
 		});
 		btnAddNewAdmin.setFont(new Font("Bahnschrift", Font.BOLD, 20));
@@ -376,6 +388,128 @@ public class MainScreen extends JFrame {
 		panelChangePasswordUC12.add(pf_newRetypedPassword);
 		panelChangePasswordUC12.add(lblNewLabel_1);
 		panelChangePasswordUC12.add(pf_OldPassword);
+		
+		panelAddNewAdmin3 = new JPanel();
+		layeredPane.add(panelAddNewAdmin3, "name_2537071141032625");
+		
+		lblPassword_4 = new JLabel("Password");
+		lblPassword_4.setFont(new Font("Dialog", Font.PLAIN, 20));
+		
+		lblNewLabel_2 = new JLabel("Username");
+		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 20));
+		
+		passwordField = new JPasswordField();
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		btnNewButton_1 = new JButton("EXIT");
+		btnNewButton_1.setFont(new Font("Dialog", Font.BOLD, 20));
+		
+		btnLogIn_2 = new JButton("LOG IN");
+		btnLogIn_2.setFont(new Font("Dialog", Font.BOLD, 20));
+		
+		JLabel lblPassword_4_1 = new JLabel("Retype Password");
+		lblPassword_4_1.setFont(new Font("Dialog", Font.PLAIN, 20));
+		GroupLayout gl_panelAddNewAdmin3 = new GroupLayout(panelAddNewAdmin3);
+		gl_panelAddNewAdmin3.setHorizontalGroup(
+			gl_panelAddNewAdmin3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAddNewAdmin3.createSequentialGroup()
+					.addContainerGap(15, Short.MAX_VALUE)
+					.addGroup(gl_panelAddNewAdmin3.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panelAddNewAdmin3.createSequentialGroup()
+							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(btnLogIn_2, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+							.addGap(75))
+						.addGroup(Alignment.TRAILING, gl_panelAddNewAdmin3.createSequentialGroup()
+							.addGroup(gl_panelAddNewAdmin3.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblPassword_4, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panelAddNewAdmin3.createSequentialGroup()
+									.addComponent(lblPassword_4_1)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGap(18)
+							.addGroup(gl_panelAddNewAdmin3.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(passwordField)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE))
+							.addGap(56))))
+		);
+		gl_panelAddNewAdmin3.setVerticalGroup(
+			gl_panelAddNewAdmin3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAddNewAdmin3.createSequentialGroup()
+					.addGap(103)
+					.addGroup(gl_panelAddNewAdmin3.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_2, Alignment.TRAILING)
+						.addComponent(textField, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panelAddNewAdmin3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelAddNewAdmin3.createSequentialGroup()
+							.addGap(18)
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelAddNewAdmin3.createSequentialGroup()
+							.addGap(28)
+							.addComponent(lblPassword_4, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
+					.addGap(32)
+					.addComponent(lblPassword_4_1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addGap(102)
+					.addGroup(gl_panelAddNewAdmin3.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnLogIn_2, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+					.addGap(51))
+		);
+		panelAddNewAdmin3.setLayout(gl_panelAddNewAdmin3);
+		
+		panelAddNewAdmin = new JPanel();
+		panelAddNewAdmin.setLayout(null);
+		layeredPane.add(panelAddNewAdmin, "name_2537506951486689");
+		
+		JLabel lblPassword_3_1 = new JLabel("New Password");
+		lblPassword_3_1.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblPassword_3_1.setBounds(36, 263, 135, 25);
+		panelAddNewAdmin.add(lblPassword_3_1);
+		
+		JButton btnCancelChangePassword_1 = new JButton("CANCEL");
+		btnCancelChangePassword_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelSuperUserUC1);
+			}
+		});
+		btnCancelChangePassword_1.setFont(new Font("Dialog", Font.BOLD, 20));
+		btnCancelChangePassword_1.setBounds(108, 332, 126, 54);
+		panelAddNewAdmin.add(btnCancelChangePassword_1);
+		
+		JButton btnLogIn_1_1 = new JButton("ADD");
+		btnLogIn_1_1.setFont(new Font("Dialog", Font.BOLD, 20));
+		btnLogIn_1_1.setBounds(278, 333, 127, 54);
+		panelAddNewAdmin.add(btnLogIn_1_1);
+		
+		JLabel lblPassword_1_1 = new JLabel("Password");
+		lblPassword_1_1.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblPassword_1_1.setBounds(36, 195, 138, 25);
+		panelAddNewAdmin.add(lblPassword_1_1);
+		
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(195, 167, 231, 53);
+		panelAddNewAdmin.add(passwordField_1);
+		
+		JLabel lblPassword_2_1 = new JLabel("Re-type");
+		lblPassword_2_1.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblPassword_2_1.setBounds(36, 236, 72, 24);
+		panelAddNewAdmin.add(lblPassword_2_1);
+		
+		passwordField_2 = new JPasswordField();
+		passwordField_2.setBounds(195, 232, 231, 52);
+		panelAddNewAdmin.add(passwordField_2);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Usrname");
+		lblNewLabel_1_1.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblNewLabel_1_1.setBounds(39, 128, 125, 25);
+		panelAddNewAdmin.add(lblNewLabel_1_1);
+		
+		passwordField_3 = new JPasswordField();
+		passwordField_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		passwordField_3.setBounds(195, 100, 231, 55);
+		panelAddNewAdmin.add(passwordField_3);
 		contentPane.setLayout(gl_contentPane);
 	}
 
