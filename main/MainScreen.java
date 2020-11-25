@@ -26,6 +26,10 @@ import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
 
 public class MainScreen extends JFrame {
 
@@ -83,6 +87,7 @@ public class MainScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public MainScreen() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 522);
 		contentPane = new JPanel();
@@ -153,39 +158,41 @@ public class MainScreen extends JFrame {
 			gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelLogInUC0.createSequentialGroup()
 					.addContainerGap(65, Short.MAX_VALUE)
-					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelLogInUC0.createSequentialGroup()
-							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfPassword))
+							.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(tfPassword)
+								.addComponent(tfUserName, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+							.addGap(52))
 						.addGroup(gl_panelLogInUC0.createSequentialGroup()
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfUserName, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)))
-					.addGap(63))
-				.addGroup(gl_panelLogInUC0.createSequentialGroup()
-					.addGap(97)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
-					.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(75, Short.MAX_VALUE))
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+							.addGap(75))))
 		);
 		gl_panelLogInUC0.setVerticalGroup(
 			gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelLogInUC0.createSequentialGroup()
-					.addGap(205)
+					.addGap(217)
 					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfUserName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(lblNewLabel, Alignment.TRAILING)
+						.addComponent(tfUserName, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-					.addGap(53)
-					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-					.addGap(57))
+						.addGroup(gl_panelLogInUC0.createSequentialGroup()
+							.addGap(18)
+							.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelLogInUC0.createSequentialGroup()
+							.addGap(28)
+							.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
+					.addGap(62)
+					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+					.addGap(51))
 		);
 		panelLogInUC0.setLayout(gl_panelLogInUC0);
 		
@@ -299,14 +306,18 @@ public class MainScreen extends JFrame {
 		layeredPane.add(panelChangePasswordUC12, "name_55635682621000");
 		
 		lblPassword_1 = new JLabel("New Password");
+		lblPassword_1.setBounds(36, 195, 138, 25);
 		lblPassword_1.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
 		
 		pf_NewPassword = new JPasswordField();
+		pf_NewPassword.setBounds(195, 167, 231, 53);
 		
 		lblNewLabel_1 = new JLabel("Old Password");
+		lblNewLabel_1.setBounds(39, 128, 125, 25);
 		lblNewLabel_1.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
 		
 		btnCancelChangePassword = new JButton("CANCEL");
+		btnCancelChangePassword.setBounds(108, 332, 126, 54);
 		btnCancelChangePassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changePanelByUserType(userType);
@@ -315,6 +326,7 @@ public class MainScreen extends JFrame {
 		btnCancelChangePassword.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
 		btnLogIn_1 = new JButton("CHANGE");
+		btnLogIn_1.setBounds(278, 333, 127, 54);
 		btnLogIn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 								
@@ -341,75 +353,29 @@ public class MainScreen extends JFrame {
 		btnLogIn_1.setFont(new Font("Bahnschrift", Font.BOLD, 20));
 		
 		lblPassword_2 = new JLabel("Re-type");
+		lblPassword_2.setBounds(36, 236, 72, 24);
 		lblPassword_2.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
 		
-		lblPassword_3 = new JLabel("New Password");
-		lblPassword_3.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
-		
 		pf_newRetypedPassword = new JPasswordField();
+		pf_newRetypedPassword.setBounds(195, 232, 231, 52);
 		
 		pf_OldPassword = new JPasswordField();
-		GroupLayout gl_panelChangePasswordUC12 = new GroupLayout(panelChangePasswordUC12);
-		gl_panelChangePasswordUC12.setHorizontalGroup(
-			gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-					.addGap(97)
-					.addComponent(btnCancelChangePassword, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
-					.addComponent(btnLogIn_1, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(75, Short.MAX_VALUE))
-				.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-					.addGap(39)
-					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addComponent(lblPassword_1, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(pf_NewPassword, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-									.addGap(1)
-									.addComponent(lblPassword_3, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblPassword_2, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-							.addComponent(pf_newRetypedPassword, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-							.addComponent(pf_OldPassword, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)))
-					.addGap(37))
-		);
-		gl_panelChangePasswordUC12.setVerticalGroup(
-			gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-					.addGap(93)
-					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-							.addGap(27)
-							.addComponent(lblPassword_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-							.addGap(7))
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addComponent(pf_OldPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addGap(32)
-							.addComponent(pf_NewPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)))
-					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addGap(5)
-							.addComponent(lblPassword_2, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-							.addGap(9)
-							.addComponent(lblPassword_3, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelChangePasswordUC12.createSequentialGroup()
-							.addGap(11)
-							.addComponent(pf_newRetypedPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)))
-					.addGap(49)
-					.addGroup(gl_panelChangePasswordUC12.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCancelChangePassword, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnLogIn_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-					.addGap(57))
-		);
-		panelChangePasswordUC12.setLayout(gl_panelChangePasswordUC12);
+		pf_OldPassword.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		pf_OldPassword.setBounds(195, 100, 231, 55);
+		panelChangePasswordUC12.setLayout(null);
+		
+		lblPassword_3 = new JLabel("New Password");
+		lblPassword_3.setBounds(36, 263, 135, 25);
+		lblPassword_3.setFont(new Font("Bahnschrift", Font.PLAIN, 20));
+		panelChangePasswordUC12.add(lblPassword_3);
+		panelChangePasswordUC12.add(btnCancelChangePassword);
+		panelChangePasswordUC12.add(btnLogIn_1);
+		panelChangePasswordUC12.add(lblPassword_1);
+		panelChangePasswordUC12.add(pf_NewPassword);
+		panelChangePasswordUC12.add(lblPassword_2);
+		panelChangePasswordUC12.add(pf_newRetypedPassword);
+		panelChangePasswordUC12.add(lblNewLabel_1);
+		panelChangePasswordUC12.add(pf_OldPassword);
 		contentPane.setLayout(gl_contentPane);
 	}
 
