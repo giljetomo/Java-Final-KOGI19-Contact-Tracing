@@ -6,16 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import kogi19.databaseConstants.DBConstants;
+import kogi19.main.Individual;
 
 public class DatabaseHandler {
 	
 	//instance variables
 	private static DatabaseHandler handler = null;
-	Connection conn = null;
-	
+	Connection conn = null;	
 	//constructor
 	public DatabaseHandler() {
 		createConnection();
@@ -30,6 +31,85 @@ public class DatabaseHandler {
 		
 		return handler;
 	}
+	
+	
+	public ArrayList<String> getIndividuals() {
+		ArrayList<String> individuals = new ArrayList<>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM individual");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				individuals.add(rs.getString(1) + " - " + rs.getString(2));
+			}
+			
+			return individuals;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private String getCurrentIndividualCount() {
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) FROM individual");
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			int id = rs.getInt(1) + 1;
+			
+			return "KG00" + id; 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public boolean addNewIndividual(Individual individual) {
+		boolean successful = false;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO individual VALUES (?, ?, ?, ?, ?, ?)");
+			pstmt.setString(1, getCurrentIndividualCount());
+			pstmt.setString(2, individual.getName());
+			pstmt.setString(3, individual.getGender());
+			pstmt.setDate(4, individual.getBirthdate());
+			pstmt.setString(5, individual.getAddress());
+			pstmt.setString(6, individual.getContact());
+			
+			int record = pstmt.executeUpdate();
+			
+			if(record == 1)
+				successful = true;			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return successful;
+		
+	}
+	
+	
+	public boolean addNewAdmin(String username, String password) {
+		boolean successful = false;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO admin VALUES (?, md5(?), 'r')");
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			
+			int record = pstmt.executeUpdate();
+			
+			if(record == 1)
+				successful = true;			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return successful;
+	}
+	//Koji
 	
 	public boolean changePassword(String username, String oldPassword, String newPassword) {
 		boolean successful = false;
@@ -51,20 +131,24 @@ public class DatabaseHandler {
 		return successful;
 	}
 	
+//	public boolean checkContact(String contact) {
+////		return 0;
+//	}
+	
 	public boolean checkUser(String username) {
 		
 		//check for existing user
 		//if it exists change, if not prompt the user
-		boolean isFound = true;
+		boolean isFound = false;
 		
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) FROM ADMIN WHERE username = ?");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM ADMIN WHERE username = ?");
 			pstmt.setString(1, username);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			if(!rs.isBeforeFirst()) {
-				isFound = false;
+			if(rs.isBeforeFirst()) {
+				isFound = true;
 			} 
 			
 		} catch (SQLException e) {
@@ -132,3 +216,4 @@ public class DatabaseHandler {
 		}
 	}
 }
+
