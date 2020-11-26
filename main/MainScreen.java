@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -17,6 +20,7 @@ import java.util.Objects;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -110,6 +114,7 @@ public class MainScreen extends JFrame {
 	private JLabel lblNewLabel_1_5;
 	private JTextField tfAddressAddClinic;
 	private JComboBox ComboBoxClinicName;
+	private JLabel lblBranding;
 
 	/**
 	 * Launch the application.
@@ -821,6 +826,14 @@ public class MainScreen extends JFrame {
 		tfAddressAddClinic.setColumns(10);
 		tfAddressAddClinic.setBounds(137, 171, 286, 44);
 		panelAddClinic.add(tfAddressAddClinic);
+		
+		ImageIcon img = new ImageIcon("branding1.png");
+		lblBranding = new JLabel(new ImageIcon(MainScreen.class.getResource("/kogi19/main/branding.jpg")));
+		lblBranding.setBounds(0, 0, 371, 549);
+		contentPane.add(lblBranding);
+		
+		
+		
 	}
 	
 	private void populateJComboBoxIndividuals() {
