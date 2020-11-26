@@ -1,4 +1,4 @@
-package kogi19.databaseScripts;
+package kogi19.DatabaseHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import kogi19.databaseConstants.DBConstants;
 import kogi19.main.Individual;
+
 
 public class DatabaseHandler {
 	
