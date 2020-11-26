@@ -465,7 +465,7 @@ public class MainScreen extends JFrame {
 			}
 		});
 		btnAdd.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnAdd.setBounds(278, 333, 127, 54);
+		btnAdd.setBounds(279, 333, 126, 54);
 		panelAddNewAdmin.add(btnAdd);
 		
 		JLabel lblPassword_1_1 = new JLabel("Password");
@@ -524,7 +524,7 @@ public class MainScreen extends JFrame {
 		btnGenerateReports.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnLogoutSystem = new JButton("LOGOUT");
-		btnLogoutSystem.setBounds(244, 411, 170, 54);
+		btnLogoutSystem.setBounds(255, 423, 164, 54);
 		btnLogoutSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelLogInUC0);
@@ -542,7 +542,7 @@ public class MainScreen extends JFrame {
 		btnAddIndividual.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		JButton btnCancelSystem = new JButton("CANCEL");
-		btnCancelSystem.setBounds(47, 411, 170, 54);
+		btnCancelSystem.setBounds(47, 423, 170, 54);
 		btnCancelSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -586,7 +586,7 @@ public class MainScreen extends JFrame {
 			}
 		});
 		btnCancelChangePassword_2.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnCancelChangePassword_2.setBounds(99, 412, 126, 54);
+		btnCancelChangePassword_2.setBounds(97, 413, 127, 54);
 		panelAddIndividual.add(btnCancelChangePassword_2);
 		
 		btnAdd_1 = new JButton("ADD");
@@ -604,11 +604,9 @@ public class MainScreen extends JFrame {
 				
 				if(dbhandler.addNewIndividual(individual)) {
 					JOptionPane.showMessageDialog(null, "Individual Added", "Success", JOptionPane.INFORMATION_MESSAGE);
+					switchPanel(panelSystemPortal);
 				} else
 					JOptionPane.showMessageDialog(null, "Try again!", "System Error", JOptionPane.ERROR_MESSAGE);
-		
-
-				
 				
 			}
 		});
@@ -706,6 +704,7 @@ public class MainScreen extends JFrame {
 				
 				if(dbhandler.addResult(clinicId, result, testDate, personId)) {
 					JOptionPane.showMessageDialog(null, "Result Added", "Success", JOptionPane.INFORMATION_MESSAGE);
+					switchPanel(panelSystemPortal);
 				} else
 					JOptionPane.showMessageDialog(null, "Try again!", "System Error", JOptionPane.ERROR_MESSAGE);
 				
@@ -762,6 +761,11 @@ public class MainScreen extends JFrame {
 		panelAddClinic.setBackground(Color.WHITE);
 		
 		btnCancelChangePassword_4 = new JButton("CANCEL");
+		btnCancelChangePassword_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelSystemPortal);
+			}
+		});
 		btnCancelChangePassword_4.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnCancelChangePassword_4.setBounds(91, 396, 126, 54);
 		panelAddClinic.add(btnCancelChangePassword_4);
@@ -798,13 +802,13 @@ public class MainScreen extends JFrame {
 		
 		lblNewLabel_1_4 = new JLabel("Clinic Name");
 		lblNewLabel_1_4.setFont(new Font("Verdana", Font.PLAIN, 18));
-		lblNewLabel_1_4.setBounds(51, 87, 115, 25);
+		lblNewLabel_1_4.setBounds(51, 87, 110, 25);
 		panelAddClinic.add(lblNewLabel_1_4);
 		
 		tfClinicNameAddClinic = new JTextField();
 		tfClinicNameAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
 		tfClinicNameAddClinic.setColumns(10);
-		tfClinicNameAddClinic.setBounds(182, 78, 231, 44);
+		tfClinicNameAddClinic.setBounds(169, 78, 254, 44);
 		panelAddClinic.add(tfClinicNameAddClinic);
 		
 		lblNewLabel_1_5 = new JLabel("Address");
@@ -815,7 +819,7 @@ public class MainScreen extends JFrame {
 		tfAddressAddClinic = new JTextField();
 		tfAddressAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
 		tfAddressAddClinic.setColumns(10);
-		tfAddressAddClinic.setBounds(182, 171, 231, 44);
+		tfAddressAddClinic.setBounds(137, 171, 286, 44);
 		panelAddClinic.add(tfAddressAddClinic);
 	}
 	
