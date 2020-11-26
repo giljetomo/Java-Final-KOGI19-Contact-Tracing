@@ -28,6 +28,112 @@ public class DatabaseHandler {
 	
 	//methods
 	
+//	ei_person_id varchar (7) primary key,
+//	si_person_id varchar (7),
+//	location_id int,
+//	exposure_date date,
+	
+	public boolean addExposedIndividual(String eiPersonId, String siPersonId, int locationId, Date dateExposed) {
+		boolean successful = false;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO exposed_individual VALUES (?, ?, ?, ?)");
+			pstmt.setString(1, eiPersonId);
+			pstmt.setString(2, siPersonId);
+			pstmt.setInt(3, locationId);
+			pstmt.setDate(4, dateExposed);
+			
+			int record = pstmt.executeUpdate();
+			
+			if(record == 1) {
+				successful = true;
+			}
+			
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		return successful;
+	}
+	
+	public String getSelectedExposedIndividual(int selectedIndex) {
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT person_id, pname FROM individual WHERE person_id not in (SELECT person_id FROM results) and person_id not in (SELECT ei_person_id FROM exposed_individual)",  ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.absolute(selectedIndex + 1)) {
+				return rs.getString(1);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public int getSourceIndividualLocationId(int selectedIndex, String personId) {
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT location_id FROM location WHERE si_person_id = ?",  ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			pstmt.setString(1, personId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.absolute(selectedIndex + 1)) {
+				return rs.getInt(1);
+				
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
+	
+	
+	public ArrayList<String> getPossibleExposedIndividuals() {
+		ArrayList<String> individuals = new ArrayList<>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT person_id, pname FROM individual WHERE person_id not in (SELECT person_id FROM results) and person_id not in (SELECT ei_person_id FROM exposed_individual)");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				individuals.add(rs.getString(1) + " - " + rs.getString(2));
+			}
+			
+			return individuals;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<String> getSourceIndividualLocations(String personId) {
+		ArrayList<String> locations = new ArrayList<>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT location_id,  location_name FROM location WHERE si_person_id = ?");
+			pstmt.setString(1, personId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				locations.add(rs.getInt(1) + " - " + rs.getString(2));
+			}
+			
+			return locations;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 	public boolean addNewLocation(Location location) {
 		boolean successful = false;
@@ -97,7 +203,6 @@ public class DatabaseHandler {
 			pstmt.setInt(3, clinicId);
 			
 			int record = pstmt.executeUpdate();
-			System.out.println(record);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

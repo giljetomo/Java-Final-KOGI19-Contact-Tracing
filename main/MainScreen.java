@@ -44,6 +44,7 @@ import javax.swing.DefaultComboBoxModel;
 
 public class MainScreen extends JFrame {
 
+	private String sourcePersonId;
 	private JPanel contentPane;
 	DatabaseHandler dbhandler = null;
 	private JPanel panelLogInUC0;
@@ -132,8 +133,10 @@ public class MainScreen extends JFrame {
 	private JLabel lblPassword_3_6;
 	private JComboBox ComboBoxSymptom;
 	private JPanel panelAddIndividualToExistingLocation;
-	private JLabel lblSourceIndividual_1;
-	private JComboBox ComboBoxSourceIndividual_1;
+	private JLabel lblSourceIndividualExisting;
+	private JComboBox ComboBoxLocationExisting;
+	private JComboBox ComboBoxExposedIndividualExisting;
+	private JDateChooser dateChooserDateOfExposure;
 
 	/**
 	 * Launch the application.
@@ -886,6 +889,12 @@ public class MainScreen extends JFrame {
 		btnAddIndividualToExistingLocation = new JButton("<html>Add Individual to<br>an Existing Location</html>");
 		btnAddIndividualToExistingLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int personNameIndex = ComboBoxSourceIndividual.getSelectedIndex();
+				sourcePersonId =  dbhandler.getSourcePersonId(personNameIndex);
+				populateComboBoxLocationExisting();
+				populateComboBoxExposedIndividualExisting();
+				lblSourceIndividualExisting.setText(ComboBoxSourceIndividual.getSelectedItem().toString());
+				switchPanel(panelAddIndividualToExistingLocation);
 			}
 		});
 		btnAddIndividualToExistingLocation.setFont(new Font("Verdana", Font.BOLD, 18));
@@ -945,9 +954,9 @@ public class MainScreen extends JFrame {
 				String locationName = tfLocationNameAddLocation.getText();
 				String locationAddress = tfAddressAddLocation.getText();
 				int personNameIndex = ComboBoxSourceIndividual.getSelectedIndex();
-				String personId =  dbhandler.getSourcePersonId(personNameIndex);
+				sourcePersonId =  dbhandler.getSourcePersonId(personNameIndex);
 				
-				Location location = new Location(locationName, locationAddress, personId);
+				Location location = new Location(locationName, locationAddress, sourcePersonId);
 				
 				
 				if(dbhandler.addNewLocation(location)) {
@@ -1000,45 +1009,83 @@ public class MainScreen extends JFrame {
 		panelAddIndividualToExistingLocation.setBackground(Color.WHITE);
 		layeredPane.add(panelAddIndividualToExistingLocation, "name_2638995138281648");
 		
-		lblSourceIndividual_1 = new JLabel("<html>Source<br>Individual</html>");
-		lblSourceIndividual_1.setFont(new Font("Verdana", Font.PLAIN, 18));
-		lblSourceIndividual_1.setBounds(58, 72, 119, 44);
-		panelAddIndividualToExistingLocation.add(lblSourceIndividual_1);
-		
-		ComboBoxSourceIndividual_1 = new JComboBox();
-		ComboBoxSourceIndividual_1.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxSourceIndividual_1.setBounds(189, 72, 231, 44);
-		panelAddIndividualToExistingLocation.add(ComboBoxSourceIndividual_1);
-		
 		JButton btnCancelChangePassword_5_1 = new JButton("CANCEL");
+		btnCancelChangePassword_5_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelExposedIndividualsPortal);
+			}
+		});
 		btnCancelChangePassword_5_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnCancelChangePassword_5_1.setBounds(104, 404, 126, 54);
 		panelAddIndividualToExistingLocation.add(btnCancelChangePassword_5_1);
 		
 		JButton btnAddLocationSourceIndividual_1 = new JButton("ADD");
+		btnAddLocationSourceIndividual_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int personNameIndex = ComboBoxSourceIndividual.getSelectedIndex();
+				sourcePersonId =  dbhandler.getSourcePersonId(personNameIndex);
+
+				int locationIndex = ComboBoxLocationExisting.getSelectedIndex();
+				int locationId =  dbhandler.getSourceIndividualLocationId(locationIndex, sourcePersonId);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date exposureDate = Date.valueOf(sdf.format(dateChooserDateOfExposure.getDate()));
+				
+				int exposedIndividualIndex = ComboBoxExposedIndividualExisting.getSelectedIndex();
+				String exposedIndividualId = dbhandler.getSelectedExposedIndividual(exposedIndividualIndex);
+				
+//				System.out.println(sourcePersonId + locationId + String.valueOf(exposureDate) + exposedIndividualId);
+				
+				if(dbhandler.addExposedIndividual(exposedIndividualId, sourcePersonId, locationId, exposureDate)) {
+					JOptionPane.showMessageDialog(null, "Exposed Individual Added", "Success", JOptionPane.INFORMATION_MESSAGE);
+					populateComboBoxExposedIndividualExisting();
+					panelAddIndividualToExistingLocation.add(ComboBoxExposedIndividualExisting);
+					switchPanel(panelAddIndividualToExistingLocation);
+				} else
+					JOptionPane.showMessageDialog(null, "Individual Already Added!", "System Error", JOptionPane.ERROR_MESSAGE);
+				
+				
+			}
+		});
 		btnAddLocationSourceIndividual_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnAddLocationSourceIndividual_1.setBounds(274, 405, 127, 54);
 		panelAddIndividualToExistingLocation.add(btnAddLocationSourceIndividual_1);
 		
-		JLabel lblNewLabel_1_3_1 = new JLabel("Clinic Name");
+		JLabel lblNewLabel_1_3_1 = new JLabel("Location");
 		lblNewLabel_1_3_1.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblNewLabel_1_3_1.setBounds(58, 172, 115, 25);
 		panelAddIndividualToExistingLocation.add(lblNewLabel_1_3_1);
 		
-		JComboBox ComboBoxClinicName_1 = new JComboBox();
-		ComboBoxClinicName_1.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxClinicName_1.setBounds(189, 168, 231, 44);
-		panelAddIndividualToExistingLocation.add(ComboBoxClinicName_1);
+		ComboBoxLocationExisting = new JComboBox();
+		ComboBoxLocationExisting.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ComboBoxLocationExisting.setBounds(189, 168, 231, 44);
+		panelAddIndividualToExistingLocation.add(ComboBoxLocationExisting);
 		
-		JLabel lblNewLabel_1_3_2 = new JLabel("Clinic Name");
+		
+		
+		JLabel lblNewLabel_1_3_2 = new JLabel("<html>Exposed<br>Individual</html>");
 		lblNewLabel_1_3_2.setFont(new Font("Verdana", Font.PLAIN, 18));
-		lblNewLabel_1_3_2.setBounds(58, 251, 115, 25);
+		lblNewLabel_1_3_2.setBounds(58, 247, 115, 44);
 		panelAddIndividualToExistingLocation.add(lblNewLabel_1_3_2);
 		
-		JComboBox ComboBoxClinicName_2 = new JComboBox();
-		ComboBoxClinicName_2.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxClinicName_2.setBounds(189, 247, 231, 44);
-		panelAddIndividualToExistingLocation.add(ComboBoxClinicName_2);
+		ComboBoxExposedIndividualExisting = new JComboBox();
+		ComboBoxExposedIndividualExisting.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ComboBoxExposedIndividualExisting.setBounds(189, 247, 231, 44);
+		panelAddIndividualToExistingLocation.add(ComboBoxExposedIndividualExisting);
+		
+		lblSourceIndividualExisting = new JLabel("Source Individual");
+		lblSourceIndividualExisting.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblSourceIndividualExisting.setBounds(104, 67, 283, 25);
+		panelAddIndividualToExistingLocation.add(lblSourceIndividualExisting);
+		
+		JLabel lblPassword_2_2_1 = new JLabel("<html>Date of<br>Exposure</html>");
+		lblPassword_2_2_1.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPassword_2_2_1.setBounds(84, 325, 92, 54);
+		panelAddIndividualToExistingLocation.add(lblPassword_2_2_1);
+		
+		dateChooserDateOfExposure = new JDateChooser();
+		dateChooserDateOfExposure.getCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 18));
+		dateChooserDateOfExposure.setBounds(189, 325, 231, 40);
+		panelAddIndividualToExistingLocation.add(dateChooserDateOfExposure);
 		
 		
 		ImageIcon img = new ImageIcon("branding1.png");
@@ -1069,6 +1116,20 @@ public class MainScreen extends JFrame {
 		panelExposedIndividualsPortal.add(ComboBoxSourceIndividual);
 	}
 
+	private void populateComboBoxLocationExisting() {
+		dbhandler = DatabaseHandler.getInstance();
+		ArrayList<String> locations = dbhandler.getSourceIndividualLocations(sourcePersonId);
+		ComboBoxLocationExisting.setModel(new DefaultComboBoxModel<String>(locations.toArray(new String[0])));
+		panelAddIndividualToExistingLocation.add(ComboBoxLocationExisting);
+	}
+	
+	private void populateComboBoxExposedIndividualExisting() {
+		dbhandler = DatabaseHandler.getInstance();
+		ArrayList<String> locations = dbhandler.getPossibleExposedIndividuals();
+		ComboBoxExposedIndividualExisting.setModel(new DefaultComboBoxModel<String>(locations.toArray(new String[0])));
+		panelAddIndividualToExistingLocation.add(ComboBoxExposedIndividualExisting);
+	}
+	
 	protected void changePanelByUserType(String userType) {	
 		if(userType.equals("s")) 
 			switchPanel(panelSuperUserUC1);
