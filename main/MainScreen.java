@@ -355,7 +355,7 @@ public class MainScreen extends JFrame {
 		btnCancelChangePassword.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnLogIn_1 = new JButton("CHANGE");
-		btnLogIn_1.setBounds(251, 356, 137, 54);
+		btnLogIn_1.setBounds(263, 356, 125, 54);
 		btnLogIn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 								
