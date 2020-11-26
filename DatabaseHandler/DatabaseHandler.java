@@ -13,6 +13,7 @@ import java.util.Objects;
 import kogi19.databaseConstants.DBConstants;
 import kogi19.main.Clinic;
 import kogi19.main.Individual;
+import kogi19.main.Location;
 
 
 public class DatabaseHandler {
@@ -28,20 +29,105 @@ public class DatabaseHandler {
 	//methods
 	
 	
-	
-	public boolean addResult(int clinicId, String result, Date dateTested, String personId) {
+	public boolean addNewLocation(Location location) {
 		boolean successful = false;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO results VALUES (?, ?, ?, ?)");
-			pstmt.setInt(1, clinicId);
-			pstmt.setString(2, result);
-			pstmt.setDate(3, dateTested);
-			pstmt.setString(4, personId);
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO location(location_name, location_address, si_person_id) VALUES (?, ?, ?)");
+			pstmt.setString(1, location.getLocationName());
+			pstmt.setString(2, location.getLocationAddress());
+			pstmt.setString(3, location.getPersonId());
+			
 			
 			int record = pstmt.executeUpdate();
 			
 			if(record == 1)
 				successful = true;			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return successful;
+	}
+	
+	public String getSourcePersonId(int selectedIndex) {
+		String personId = null;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT a.person_id, b.pname FROM results a, individual b WHERE a.result = 'P' and a.person_id = b.person_id",  ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.absolute(selectedIndex + 1)) {
+				return rs.getString(1);
+				
+			}
+			
+			return personId;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<String> getSourceIndividuals() {
+		ArrayList<String> individuals = new ArrayList<>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT a.person_id, b.pname FROM results a, individual b WHERE a.result = 'P' and a.person_id = b.person_id");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				individuals.add(rs.getString(1) + " - " + rs.getString(2));
+			}
+			
+			return individuals;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	private void addSourceIndividual(String personId, String condition, int clinicId) {
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO source_individual VALUES (?, ?, ?)");
+			pstmt.setString(1, personId);
+			pstmt.setString(2, condition);
+			pstmt.setInt(3, clinicId);
+			
+			int record = pstmt.executeUpdate();
+			System.out.println(record);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public boolean addResult(String personId, int clinicId, String result, Date dateTested, String condition) {
+		boolean successful = false;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO results VALUES (?, ?, ?, ?)");
+			pstmt.setString(1, personId);
+			pstmt.setInt(2, clinicId);
+			pstmt.setString(3, result);
+			pstmt.setDate(4, dateTested);
+			
+			int record = pstmt.executeUpdate();
+			
+			if(record == 1) {
+				successful = true;
+				if (result.equalsIgnoreCase("P")) {
+					String formattedCondition = "";
+					if (condition.equalsIgnoreCase("Symptomatic")) {
+						formattedCondition = "S";
+					} else if (condition.equalsIgnoreCase("Asymptomatic")){
+						formattedCondition = "A";
+					}
+					addSourceIndividual(personId, formattedCondition, clinicId);						
+				}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -209,7 +295,7 @@ public class DatabaseHandler {
 				successful = true;			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return successful;
 		
