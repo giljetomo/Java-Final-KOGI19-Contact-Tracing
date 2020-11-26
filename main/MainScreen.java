@@ -136,6 +136,8 @@ public class MainScreen extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);
+	
 		
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(370, 0, 463, 544);
@@ -466,7 +468,7 @@ public class MainScreen extends JFrame {
 		
 		pfPasswordAddNewAdmin = new JPasswordField();
 		pfPasswordAddNewAdmin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		pfPasswordAddNewAdmin.setBounds(195, 167, 231, 53);
+		pfPasswordAddNewAdmin.setBounds(191, 167, 235, 53);
 		panelAddNewAdmin.add(pfPasswordAddNewAdmin);
 		
 		JLabel lblPassword_2_1 = new JLabel("Re-type");
@@ -476,7 +478,7 @@ public class MainScreen extends JFrame {
 		
 		pfRePasswordAddNewAdmin = new JPasswordField();
 		pfRePasswordAddNewAdmin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		pfRePasswordAddNewAdmin.setBounds(195, 232, 231, 52);
+		pfRePasswordAddNewAdmin.setBounds(191, 232, 235, 52);
 		panelAddNewAdmin.add(pfRePasswordAddNewAdmin);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Username");
@@ -486,7 +488,7 @@ public class MainScreen extends JFrame {
 		
 		tfUsernameAddNewAdmin = new JTextField();
 		tfUsernameAddNewAdmin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		tfUsernameAddNewAdmin.setBounds(195, 101, 231, 54);
+		tfUsernameAddNewAdmin.setBounds(191, 101, 235, 54);
 		panelAddNewAdmin.add(tfUsernameAddNewAdmin);
 		tfUsernameAddNewAdmin.setColumns(10);
 		
