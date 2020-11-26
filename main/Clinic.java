@@ -1,20 +1,14 @@
 package kogi19.main;
 
-import java.sql.Date;
-
 public class Clinic {
-	
+
 	private String name;
-	private String personId;
-	private Date testdate;
-	private String result;
+	private String address;
 	
 	
-	public Clinic(String name, String personId, Date testDate, String result) {
+	public Clinic(String name, String address) {
 		setName(name);
-		setPersonId(personId);
-		setTestdate(testDate);
-		setResult(result);
+		setAddress(address);
 	}
 
 
@@ -26,41 +20,18 @@ public class Clinic {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	public String getPersonId() {
-		return personId;
-	}
-	
-	public void setPersonId(String personId) {
-		this.personId = personId;
+
+
+	public String getAddress() {
+		return address;
 	}
 
 
-
-	public Date getTestdate() {
-		return testdate;
-	}
-
-
-	public void setTestdate(Date testdate) {
-		this.testdate = testdate;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
-	public String getResult() {
-		return result;
-	}
-
-
-	public void setResult(String result) {
-		if (result.equalsIgnoreCase("Positive")) {
-			this.result = "P";
-		} else if(result.equalsIgnoreCase("Negative")) {
-			this.result = "N";
-		}
-		
-	}
 	
-
+	
 }

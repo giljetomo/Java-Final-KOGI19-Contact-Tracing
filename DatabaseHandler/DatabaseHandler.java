@@ -1,6 +1,7 @@
 package kogi19.DatabaseHandler;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import kogi19.databaseConstants.DBConstants;
+import kogi19.main.Clinic;
 import kogi19.main.Individual;
 
 
@@ -25,6 +27,83 @@ public class DatabaseHandler {
 	
 	//methods
 	
+	
+	
+	public boolean addResult(int clinicId, String result, Date dateTested, String personId) {
+		boolean successful = false;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO results VALUES (?, ?, ?, ?)");
+			pstmt.setInt(1, clinicId);
+			pstmt.setString(2, result);
+			pstmt.setDate(3, dateTested);
+			pstmt.setString(4, personId);
+			
+			int record = pstmt.executeUpdate();
+			
+			if(record == 1)
+				successful = true;			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return successful;
+	}
+	
+	public String getPersonId(int selectedIndex) {
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM individual WHERE person_id not in (SELECT person_id FROM results)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.absolute(selectedIndex + 1)) {
+				return rs.getString(1);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	public int getClinicId(int selectedIndex) {
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM clinic", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.absolute(selectedIndex + 1)) {
+				return rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
+	public ArrayList<String> getClinics() {
+		ArrayList<String> clinics = new ArrayList<>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM clinic");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				clinics.add(rs.getString(1) + " - " + rs.getString(2));
+			}
+			
+			return clinics;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public static DatabaseHandler getInstance() {
 		if(Objects.isNull(handler)) {
 			handler = new DatabaseHandler();
@@ -34,10 +113,54 @@ public class DatabaseHandler {
 	}
 	
 	
+	public boolean addNewClinic(Clinic clinic) {
+		boolean successful = false;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO clinic(name, address) VALUES (?, ?)");
+			pstmt.setString(1, clinic.getName());
+			pstmt.setString(2, clinic.getAddress());
+			
+			int record = pstmt.executeUpdate();
+			
+			if(record == 1)
+				successful = true;			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return successful;
+	}
+	
+	
+	public boolean checkClinic(String clinicName) {
+		
+		//check for existing user
+		//if it exists change, if not prompt the user
+		boolean isFound = false;
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM clinic WHERE name = ?");
+			pstmt.setString(1, clinicName);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.isBeforeFirst()) {
+				isFound = true;
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return isFound;
+	}
+	
+	
+	
 	public ArrayList<String> getIndividuals() {
 		ArrayList<String> individuals = new ArrayList<>();
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM individual");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM individual WHERE person_id not in (SELECT person_id FROM results)");
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

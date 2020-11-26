@@ -94,15 +94,22 @@ public class MainScreen extends JFrame {
 	private JButton btnAdd_2;
 	private JLabel lblPassword_2_3;
 	private JLabel lblNewLabel_1_3;
-	private JComboBox ComboBoxPersonIdAddClinic;
+	private JComboBox ComboBoxPersonIdAddTestResult;
 	private JLabel lblPassword_3_5;
-	private JDateChooser dateChooserBirthdateAddClinic;
-	private JComboBox ComboBoxResultAddClinic;
-	private JTextField tfNameAddClinic;
+	private JDateChooser dateChooserTestDate;
+	private JComboBox ComboBoxResultAddResult;
 	private JButton btnAddClinic;
 	private JPanel panelUsername;
 	private JPanel panelPassword;
 	private JTextField tfUserName;
+	private JPanel panelAddClinic;
+	private JButton btnCancelChangePassword_4;
+	private JButton btnAdd_3;
+	private JLabel lblNewLabel_1_4;
+	private JTextField tfClinicNameAddClinic;
+	private JLabel lblNewLabel_1_5;
+	private JTextField tfAddressAddClinic;
+	private JComboBox ComboBoxClinicName;
 
 	/**
 	 * Launch the application.
@@ -502,7 +509,7 @@ public class MainScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				populateJComboBoxIndividuals();
-				
+				populateJComboBoxClinics();
 				switchPanel(panelAddTestResult);
 			}
 		});
@@ -546,6 +553,11 @@ public class MainScreen extends JFrame {
 		btnCancelSystem.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnAddClinic = new JButton("Add Clinic");
+		btnAddClinic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel(panelAddClinic);
+			}
+		});
 		btnAddClinic.setBounds(104, 125, 271, 54);
 		btnAddClinic.setFont(new Font("Verdana", Font.BOLD, 18));
 		panelSystemPortal.setLayout(null);
@@ -668,6 +680,11 @@ public class MainScreen extends JFrame {
 		panelAddTestResult.add(lblPassword_3_4);
 		
 		btnCancelChangePassword_3 = new JButton("CANCEL");
+		btnCancelChangePassword_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanelByUserType(userType);
+			}
+		});
 		btnCancelChangePassword_3.setFont(new Font("Verdana", Font.BOLD, 18));
 		btnCancelChangePassword_3.setBounds(91, 396, 126, 54);
 		panelAddTestResult.add(btnCancelChangePassword_3);
@@ -675,7 +692,25 @@ public class MainScreen extends JFrame {
 		btnAdd_2 = new JButton("ADD");
 		btnAdd_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			// clinid_id, result, testingDate, person_id
+				dbhandler = DatabaseHandler.getInstance();
 				
+				int clinicNameIndex = ComboBoxClinicName.getSelectedIndex();
+				int clinicId =  dbhandler.getClinicId(clinicNameIndex);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date testDate = Date.valueOf(sdf.format(dateChooserTestDate.getDate()));
+				int personNameIndex = ComboBoxPersonIdAddTestResult.getSelectedIndex();
+				String personId =  dbhandler.getPersonId(personNameIndex);
+				
+				String result = String.valueOf(ComboBoxResultAddResult.getSelectedItem()).equalsIgnoreCase("Positive") ? "P" : "N";
+				
+				if(dbhandler.addResult(clinicId, result, testDate, personId)) {
+					JOptionPane.showMessageDialog(null, "Result Added", "Success", JOptionPane.INFORMATION_MESSAGE);
+				} else
+					JOptionPane.showMessageDialog(null, "Try again!", "System Error", JOptionPane.ERROR_MESSAGE);
+				
+				
+		
 				
 			}
 		});
@@ -694,40 +729,108 @@ public class MainScreen extends JFrame {
 		lblNewLabel_1_3.setBounds(51, 87, 115, 25);
 		panelAddTestResult.add(lblNewLabel_1_3);
 		
-		tfNameAddClinic = new JTextField();
-		tfNameAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
-		tfNameAddClinic.setColumns(10);
-		tfNameAddClinic.setBounds(182, 78, 231, 44);
-		panelAddTestResult.add(tfNameAddClinic);
-		
-		ComboBoxPersonIdAddClinic = new JComboBox();
-		ComboBoxPersonIdAddClinic.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxPersonIdAddClinic.setBounds(182, 139, 231, 44);
-		panelAddTestResult.add(ComboBoxPersonIdAddClinic);
+		ComboBoxPersonIdAddTestResult = new JComboBox();
+		ComboBoxPersonIdAddTestResult.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ComboBoxPersonIdAddTestResult.setBounds(182, 139, 231, 44);
+		panelAddTestResult.add(ComboBoxPersonIdAddTestResult);
 		
 		lblPassword_3_5 = new JLabel("Person ID");
 		lblPassword_3_5.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_5.setBounds(51, 149, 104, 25);
 		panelAddTestResult.add(lblPassword_3_5);
 		
-		dateChooserBirthdateAddClinic = new JDateChooser();
-		dateChooserBirthdateAddClinic.setBounds(182, 272, 231, 37);
-		dateChooserBirthdateAddClinic.setFont(new Font("Verdana", Font.PLAIN, 13));
-		panelAddTestResult.add(dateChooserBirthdateAddClinic);
+		dateChooserTestDate = new JDateChooser();
+		dateChooserTestDate.setBounds(182, 272, 231, 37);
+		dateChooserTestDate.setFont(new Font("Verdana", Font.PLAIN, 13));
+		panelAddTestResult.add(dateChooserTestDate);
 		
-		ComboBoxResultAddClinic = new JComboBox();
-		ComboBoxResultAddClinic.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxResultAddClinic.setModel(new DefaultComboBoxModel(new String[] {"Positive", "Negative"}));
-		ComboBoxResultAddClinic.setBounds(182, 204, 231, 44);
-		panelAddTestResult.add(ComboBoxResultAddClinic);
+		ComboBoxResultAddResult = new JComboBox();
+		ComboBoxResultAddResult.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ComboBoxResultAddResult.setModel(new DefaultComboBoxModel(new String[] {"Positive", "Negative"}));
+		ComboBoxResultAddResult.setBounds(182, 204, 231, 44);
+		panelAddTestResult.add(ComboBoxResultAddResult);
+		
+		ComboBoxClinicName = new JComboBox();
+		ComboBoxClinicName.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ComboBoxClinicName.setBounds(182, 83, 231, 44);
+		panelAddTestResult.add(ComboBoxClinicName);
 		contentPane.add(layeredPane);
+		
+		panelAddClinic = new JPanel();
+		layeredPane.add(panelAddClinic, "name_2573581966566636");
+		panelAddClinic.setLayout(null);
+		panelAddClinic.setBackground(Color.WHITE);
+		
+		btnCancelChangePassword_4 = new JButton("CANCEL");
+		btnCancelChangePassword_4.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnCancelChangePassword_4.setBounds(91, 396, 126, 54);
+		panelAddClinic.add(btnCancelChangePassword_4);
+		
+		btnAdd_3 = new JButton("ADD");
+		btnAdd_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dbhandler = DatabaseHandler.getInstance();
+				String clinicName = tfClinicNameAddClinic.getText();
+				String clinicAddress = tfAddressAddClinic.getText();
+				
+				Clinic clinic = new Clinic(clinicName, clinicAddress);
+				
+				boolean clinicExist = dbhandler.checkClinic(clinicName);
+				
+				if (clinicExist) {
+					JOptionPane.showMessageDialog(null, "Clinic Already Exist", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					if(dbhandler.addNewClinic(clinic)) {
+						JOptionPane.showMessageDialog(null, "Clinic Added", "Information", JOptionPane.INFORMATION_MESSAGE);
+						switchPanel(panelSystemPortal);
+					} else {
+						JOptionPane.showMessageDialog(null, "System Error", "Error", JOptionPane.ERROR_MESSAGE);						
+					}
+				}
+				
+				
+			}
+		});
+		btnAdd_3.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnAdd_3.setBounds(261, 397, 127, 54);
+		panelAddClinic.add(btnAdd_3);
+		
+		lblNewLabel_1_4 = new JLabel("Clinic Name");
+		lblNewLabel_1_4.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblNewLabel_1_4.setBounds(51, 87, 115, 25);
+		panelAddClinic.add(lblNewLabel_1_4);
+		
+		tfClinicNameAddClinic = new JTextField();
+		tfClinicNameAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
+		tfClinicNameAddClinic.setColumns(10);
+		tfClinicNameAddClinic.setBounds(182, 78, 231, 44);
+		panelAddClinic.add(tfClinicNameAddClinic);
+		
+		lblNewLabel_1_5 = new JLabel("Address");
+		lblNewLabel_1_5.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblNewLabel_1_5.setBounds(51, 180, 115, 25);
+		panelAddClinic.add(lblNewLabel_1_5);
+		
+		tfAddressAddClinic = new JTextField();
+		tfAddressAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
+		tfAddressAddClinic.setColumns(10);
+		tfAddressAddClinic.setBounds(182, 171, 231, 44);
+		panelAddClinic.add(tfAddressAddClinic);
 	}
 	
 	private void populateJComboBoxIndividuals() {
 		dbhandler = DatabaseHandler.getInstance();
 		ArrayList<String> individuals = dbhandler.getIndividuals();
-		ComboBoxPersonIdAddClinic.setModel(new DefaultComboBoxModel<String>(individuals.toArray(new String[0])));
-		panelAddTestResult.add(ComboBoxPersonIdAddClinic);
+		ComboBoxPersonIdAddTestResult.setModel(new DefaultComboBoxModel<String>(individuals.toArray(new String[0])));
+		panelAddTestResult.add(ComboBoxPersonIdAddTestResult);
+	}
+	
+	private void populateJComboBoxClinics() {
+		dbhandler = DatabaseHandler.getInstance();
+		ArrayList<String> clinics = dbhandler.getClinics();
+		ComboBoxClinicName.setModel(new DefaultComboBoxModel<String>(clinics.toArray(new String[0])));
+		panelAddTestResult.add(ComboBoxClinicName);
 	}
 
 	protected void changePanelByUserType(String userType) {	
