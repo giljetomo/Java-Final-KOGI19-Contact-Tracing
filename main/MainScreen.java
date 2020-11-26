@@ -832,8 +832,6 @@ public class MainScreen extends JFrame {
 		lblBranding.setBounds(0, 0, 371, 549);
 		contentPane.add(lblBranding);
 		
-		
-		
 	}
 	
 	private void populateJComboBoxIndividuals() {
