@@ -45,7 +45,6 @@ public class MainScreen extends JFrame {
 	private JPanel panelLogInUC0;
 	private JPanel panelSuperUserUC1;
 	private JLayeredPane layeredPane;
-	private JLabel lblPassword;
 	private JButton btnAddNewAdmin;
 	private JButton btnEnterTheSystem;
 	private JButton btnChangePasswordSU;
@@ -101,6 +100,9 @@ public class MainScreen extends JFrame {
 	private JComboBox ComboBoxResultAddClinic;
 	private JTextField tfNameAddClinic;
 	private JButton btnAddClinic;
+	private JPanel panelUsername;
+	private JPanel panelPassword;
+	private JTextField tfUserName;
 
 	/**
 	 * Launch the application.
@@ -144,25 +146,18 @@ public class MainScreen extends JFrame {
 		panelLogInUC0.setBackground(Color.WHITE);
 		layeredPane.add(panelLogInUC0, "name_2544617418237453");
 		
-		JLabel lblNewLabel = new JLabel("Username");
-		lblNewLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-		
-		JTextField tfUserName = new JTextField();
-		tfUserName.setFont(new Font("Verdana", Font.PLAIN, 18));
-		tfUserName.setColumns(10);
-		
-		lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Verdana", Font.PLAIN, 18));
-		
-		JButton btnNewButton = new JButton("EXIT");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnExit = new JButton("EXIT");
+		btnExit.setForeground(new Color(0, 0, 0));
+		btnExit.setBounds(89, 423, 131, 39);
+		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnExit.setFont(new Font("Verdana", Font.BOLD, 14));
 		
 		JButton btnLogIn = new JButton("LOG IN");
+		btnLogIn.setBounds(247, 423, 131, 39);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//remember to separate login for superuser and regular
@@ -181,52 +176,37 @@ public class MainScreen extends JFrame {
 				}
 			}
 		});
-		btnLogIn.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnLogIn.setFont(new Font("Verdana", Font.BOLD, 14));
+		
+		panelUsername = new JPanel();
+		panelUsername.setBounds(67, 207, 336, 79);
+		panelUsername.setBackground(new Color(176, 224, 230));
+		panelUsername.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Username", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "USERNAME", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		 ((javax.swing.border.TitledBorder) panelUsername.getBorder()).setTitleFont(new Font("Verdana", Font.PLAIN, 16));
+		
+		tfUserName = new JTextField();
+		tfUserName.setBounds(47, 28, 254, 35);
+		tfUserName.setFont(new Font("Verdana", Font.PLAIN, 16));
+		tfUserName.setColumns(10);
+		panelLogInUC0.setLayout(null);
+		panelLogInUC0.add(btnExit);
+		panelLogInUC0.add(btnLogIn);
+		panelLogInUC0.add(panelUsername);
+		panelUsername.setLayout(null);
+		panelUsername.add(tfUserName);
+		
+		panelPassword = new JPanel();
+		panelPassword.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Password", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "PASSWORD", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		((javax.swing.border.TitledBorder) panelPassword.getBorder()).setTitleFont(new Font("Verdana", Font.PLAIN, 16));
+		panelPassword.setBackground(new Color(176, 224, 230));
+		panelPassword.setBounds(67, 306, 336, 79);
+		panelLogInUC0.add(panelPassword);
+		panelPassword.setLayout(null);
 		
 		tfPassword = new JPasswordField();
-		tfPassword.setFont(new Font("Verdana", Font.PLAIN, 18));
-		GroupLayout gl_panelLogInUC0 = new GroupLayout(panelLogInUC0);
-		gl_panelLogInUC0.setHorizontalGroup(
-			gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelLogInUC0.createSequentialGroup()
-					.addContainerGap(75, Short.MAX_VALUE)
-					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panelLogInUC0.createSequentialGroup()
-							.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(tfPassword)
-								.addComponent(tfUserName, GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
-							.addGap(52))
-						.addGroup(gl_panelLogInUC0.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-							.addGap(27)
-							.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-							.addGap(75))))
-		);
-		gl_panelLogInUC0.setVerticalGroup(
-			gl_panelLogInUC0.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelLogInUC0.createSequentialGroup()
-					.addGap(217)
-					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panelLogInUC0.createSequentialGroup()
-							.addComponent(tfUserName, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelLogInUC0.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addGroup(gl_panelLogInUC0.createSequentialGroup()
-								.addGap(28)
-								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))))
-					.addGap(62)
-					.addGroup(gl_panelLogInUC0.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnLogIn, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-					.addGap(51))
-		);
-		panelLogInUC0.setLayout(gl_panelLogInUC0);
+		tfPassword.setBounds(48, 27, 251, 36);
+		tfPassword.setFont(new Font("Verdana", Font.PLAIN, 16));
+		panelPassword.add(tfPassword);
 		
 		panelSuperUserUC1 = new JPanel();
 		panelSuperUserUC1.setBackground(Color.WHITE);
