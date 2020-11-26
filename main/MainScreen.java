@@ -89,7 +89,7 @@ public class MainScreen extends JFrame {
 	private JTextField tfAddressAddIndividual;
 	private JTextField tfContactAddIndividual;
 	private JDateChooser dateChooserAddIndividual;
-	private JPanel panelAddClinic;
+	private JPanel panelAddTestResult;
 	private JLabel lblPassword_3_4;
 	private JButton btnCancelChangePassword_3;
 	private JButton btnAdd_2;
@@ -130,29 +130,18 @@ public class MainScreen extends JFrame {
 	public MainScreen() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 840, 522);
+		setBounds(100, 100, 840, 571);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		layeredPane = new JLayeredPane();
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(365)
-					.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 463, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(layeredPane, GroupLayout.PREFERRED_SIZE, 485, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
+		layeredPane.setBounds(370, 0, 463, 544);
+		layeredPane.setBackground(Color.WHITE);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
 		panelLogInUC0 = new JPanel();
+		panelLogInUC0.setBackground(Color.WHITE);
 		layeredPane.add(panelLogInUC0, "name_2544617418237453");
 		
 		JLabel lblNewLabel = new JLabel("Username");
@@ -240,6 +229,7 @@ public class MainScreen extends JFrame {
 		panelLogInUC0.setLayout(gl_panelLogInUC0);
 		
 		panelSuperUserUC1 = new JPanel();
+		panelSuperUserUC1.setBackground(Color.WHITE);
 		layeredPane.add(panelSuperUserUC1, "name_50771646590100");
 		
 		btnAddNewAdmin = new JButton("Add New Admin");
@@ -304,6 +294,7 @@ public class MainScreen extends JFrame {
 		panelSuperUserUC1.setLayout(gl_panelSuperUserUC1);
 		
 		panelRegularUser = new JPanel();
+		panelRegularUser.setBackground(Color.WHITE);
 		layeredPane.add(panelRegularUser, "name_54442385767900");
 		
 		btnEnterTheSystem_1 = new JButton("System Portal");
@@ -357,6 +348,7 @@ public class MainScreen extends JFrame {
 		panelRegularUser.setLayout(gl_panelRegularUser);
 		
 		panelChangePasswordUC12 = new JPanel();
+		panelChangePasswordUC12.setBackground(Color.WHITE);
 		layeredPane.add(panelChangePasswordUC12, "name_55635682621000");
 		
 		lblPassword_1 = new JLabel("New Password");
@@ -434,6 +426,7 @@ public class MainScreen extends JFrame {
 		panelChangePasswordUC12.add(btnLogIn_1);
 		
 		panelAddNewAdmin = new JPanel();
+		panelAddNewAdmin.setBackground(Color.WHITE);
 		panelAddNewAdmin.setLayout(null);
 		layeredPane.add(panelAddNewAdmin, "name_2537506951486689");
 		
@@ -518,30 +511,31 @@ public class MainScreen extends JFrame {
 		tfUsernameAddNewAdmin.setColumns(10);
 		
 		panelSystemPortal = new JPanel();
+		panelSystemPortal.setBackground(Color.WHITE);
 		layeredPane.add(panelSystemPortal, "name_2544669003617475");
 		
 		btnAddTestResult = new JButton("Add Test Result");
-		btnAddTestResult.setBounds(102, 163, 271, 54);
+		btnAddTestResult.setBounds(104, 189, 271, 54);
 		btnAddTestResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				populateJComboBoxIndividuals();
 				
-				switchPanel(panelAddClinic);
+				switchPanel(panelAddTestResult);
 			}
 		});
 		btnAddTestResult.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnAddPositiveIndividual = new JButton("Add Positive Individual");
-		btnAddPositiveIndividual.setBounds(102, 227, 271, 54);
-		btnAddPositiveIndividual.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnAddPositiveIndividual.setBounds(104, 253, 271, 54);
+		btnAddPositiveIndividual.setFont(new Font("Verdana", Font.BOLD, 17));
 		
 		btnGenerateReports = new JButton("Generate Reports");
-		btnGenerateReports.setBounds(102, 291, 271, 54);
+		btnGenerateReports.setBounds(104, 317, 271, 54);
 		btnGenerateReports.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnLogoutSystem = new JButton("LOGOUT");
-		btnLogoutSystem.setBounds(233, 404, 205, 54);
+		btnLogoutSystem.setBounds(244, 411, 170, 54);
 		btnLogoutSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelLogInUC0);
@@ -550,7 +544,7 @@ public class MainScreen extends JFrame {
 		btnLogoutSystem.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		JButton btnAddIndividual = new JButton("Add Individual");
-		btnAddIndividual.setBounds(102, 35, 271, 54);
+		btnAddIndividual.setBounds(104, 61, 271, 54);
 		btnAddIndividual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelAddIndividual);
@@ -559,7 +553,7 @@ public class MainScreen extends JFrame {
 		btnAddIndividual.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		JButton btnCancelSystem = new JButton("CANCEL");
-		btnCancelSystem.setBounds(36, 404, 170, 54);
+		btnCancelSystem.setBounds(47, 411, 170, 54);
 		btnCancelSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -570,7 +564,7 @@ public class MainScreen extends JFrame {
 		btnCancelSystem.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnAddClinic = new JButton("Add Clinic");
-		btnAddClinic.setBounds(102, 99, 271, 54);
+		btnAddClinic.setBounds(104, 125, 271, 54);
 		btnAddClinic.setFont(new Font("Verdana", Font.BOLD, 18));
 		panelSystemPortal.setLayout(null);
 		panelSystemPortal.add(btnGenerateReports);
@@ -582,6 +576,7 @@ public class MainScreen extends JFrame {
 		panelSystemPortal.add(btnAddIndividual);
 		
 		panelAddIndividual = new JPanel();
+		panelAddIndividual.setBackground(Color.WHITE);
 		panelAddIndividual.setLayout(null);
 		layeredPane.add(panelAddIndividual, "name_2545465710490669");
 		
@@ -680,19 +675,20 @@ public class MainScreen extends JFrame {
 		dateChooserAddIndividual.setBounds(178, 188, 231, 40);
 		panelAddIndividual.add(dateChooserAddIndividual);
 		
-		panelAddClinic = new JPanel();
-		panelAddClinic.setLayout(null);
-		layeredPane.add(panelAddClinic, "name_2551243279798657");
+		panelAddTestResult = new JPanel();
+		panelAddTestResult.setBackground(Color.WHITE);
+		panelAddTestResult.setLayout(null);
+		layeredPane.add(panelAddTestResult, "name_2551243279798657");
 		
 		lblPassword_3_4 = new JLabel("Result");
 		lblPassword_3_4.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_4.setBounds(51, 209, 78, 35);
-		panelAddClinic.add(lblPassword_3_4);
+		panelAddTestResult.add(lblPassword_3_4);
 		
 		btnCancelChangePassword_3 = new JButton("CANCEL");
 		btnCancelChangePassword_3.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnCancelChangePassword_3.setBounds(96, 369, 126, 54);
-		panelAddClinic.add(btnCancelChangePassword_3);
+		btnCancelChangePassword_3.setBounds(91, 396, 126, 54);
+		panelAddTestResult.add(btnCancelChangePassword_3);
 		
 		btnAdd_2 = new JButton("ADD");
 		btnAdd_2.addActionListener(new ActionListener() {
@@ -701,54 +697,55 @@ public class MainScreen extends JFrame {
 				
 			}
 		});
+		contentPane.setLayout(null);
 		btnAdd_2.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnAdd_2.setBounds(266, 370, 127, 54);
-		panelAddClinic.add(btnAdd_2);
+		btnAdd_2.setBounds(261, 397, 127, 54);
+		panelAddTestResult.add(btnAdd_2);
 		
 		lblPassword_2_3 = new JLabel("Test Date");
 		lblPassword_2_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_2_3.setBounds(51, 279, 104, 24);
-		panelAddClinic.add(lblPassword_2_3);
+		panelAddTestResult.add(lblPassword_2_3);
 		
 		lblNewLabel_1_3 = new JLabel("Clinic Name");
 		lblNewLabel_1_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblNewLabel_1_3.setBounds(51, 87, 115, 25);
-		panelAddClinic.add(lblNewLabel_1_3);
+		panelAddTestResult.add(lblNewLabel_1_3);
 		
 		tfNameAddClinic = new JTextField();
 		tfNameAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
 		tfNameAddClinic.setColumns(10);
 		tfNameAddClinic.setBounds(182, 78, 231, 44);
-		panelAddClinic.add(tfNameAddClinic);
+		panelAddTestResult.add(tfNameAddClinic);
 		
 		ComboBoxPersonIdAddClinic = new JComboBox();
-		ComboBoxPersonIdAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
+		ComboBoxPersonIdAddClinic.setFont(new Font("Verdana", Font.PLAIN, 14));
 		ComboBoxPersonIdAddClinic.setBounds(182, 139, 231, 44);
-		panelAddClinic.add(ComboBoxPersonIdAddClinic);
+		panelAddTestResult.add(ComboBoxPersonIdAddClinic);
 		
 		lblPassword_3_5 = new JLabel("Person ID");
 		lblPassword_3_5.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_5.setBounds(51, 149, 104, 25);
-		panelAddClinic.add(lblPassword_3_5);
+		panelAddTestResult.add(lblPassword_3_5);
 		
 		dateChooserBirthdateAddClinic = new JDateChooser();
 		dateChooserBirthdateAddClinic.setBounds(182, 272, 231, 37);
 		dateChooserBirthdateAddClinic.setFont(new Font("Verdana", Font.PLAIN, 13));
-		panelAddClinic.add(dateChooserBirthdateAddClinic);
+		panelAddTestResult.add(dateChooserBirthdateAddClinic);
 		
 		ComboBoxResultAddClinic = new JComboBox();
-		ComboBoxResultAddClinic.setFont(new Font("Verdana", Font.PLAIN, 18));
+		ComboBoxResultAddClinic.setFont(new Font("Verdana", Font.PLAIN, 14));
 		ComboBoxResultAddClinic.setModel(new DefaultComboBoxModel(new String[] {"Positive", "Negative"}));
 		ComboBoxResultAddClinic.setBounds(182, 204, 231, 44);
-		panelAddClinic.add(ComboBoxResultAddClinic);
-		contentPane.setLayout(gl_contentPane);
+		panelAddTestResult.add(ComboBoxResultAddClinic);
+		contentPane.add(layeredPane);
 	}
 	
 	private void populateJComboBoxIndividuals() {
 		dbhandler = DatabaseHandler.getInstance();
 		ArrayList<String> individuals = dbhandler.getIndividuals();
 		ComboBoxPersonIdAddClinic.setModel(new DefaultComboBoxModel<String>(individuals.toArray(new String[0])));
-		panelAddClinic.add(ComboBoxPersonIdAddClinic);
+		panelAddTestResult.add(ComboBoxPersonIdAddClinic);
 	}
 
 	protected void changePanelByUserType(String userType) {	
