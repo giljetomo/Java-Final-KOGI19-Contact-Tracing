@@ -10,10 +10,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javax.swing.table.DefaultTableModel;
+
 import kogi19.databaseConstants.DBConstants;
 import kogi19.main.Clinic;
 import kogi19.main.Individual;
+import kogi19.main.LineChartData;
 import kogi19.main.Location;
+import kogi19.main.ReportData;
 
 
 public class DatabaseHandler {
@@ -194,6 +198,46 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	public ArrayList<LineChartData> getListOfPositiveCases() {
+		
+		ArrayList<LineChartData> data = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("select testing_date, count(*) from results where result = 'P' group by testing_date order by testing_date");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				data.add(new LineChartData(rs.getString(1), rs.getString(2)));
+			}
+			
+			return data;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<LineChartData> getListOfTotalCases() {
+		
+		ArrayList<LineChartData> data = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("select testing_date, count(*) from results group by testing_date order by testing_date");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				data.add(new LineChartData(rs.getString(1), rs.getString(2)));
+			}
+			
+			return data;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 	private void addSourceIndividual(String personId, String condition, int clinicId) {
 		try {
@@ -209,6 +253,86 @@ public class DatabaseHandler {
 		}
 	}
 	
+	public ArrayList<ReportData> getArrayListOfDataForReport() {
+		
+		ArrayList<ReportData> rd = new ArrayList<>();
+		
+//		source_id, source name, exposed_id, exposed_name, age, phone, exposure_date, location
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id");
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+	
+			rd.add(new ReportData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getString(8)));
+			
+			}
+			
+			return rd;
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+				
+		return null;				
+				
+	}
+	
+	public DefaultTableModel getDataForReport() {
+		ArrayList<ReportData> rd = new ArrayList<>();
+		
+//		source_id, source name, exposed_id, exposed_name, age, phone, exposure_date, location
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id");
+			ResultSet rs = pstmt.executeQuery();
+			
+			DefaultTableModel model = new DefaultTableModel();
+
+			model.addColumn("SOURCE_ID");
+			model.addColumn("SOURCE NAME");
+			model.addColumn("EXPOSED_ID");
+			model.addColumn("EXPOSED NAME");
+			model.addColumn("AGE");
+			model.addColumn("PHONE");
+			model.addColumn("EXPOSURE DATE");
+			model.addColumn("LOCATION");
+			
+
+			while(rs.next()) {
+				
+				model.addRow(new Object[] {
+					rs.getString(1),
+					rs.getString(2),
+					rs.getString(3),
+					rs.getString(4),
+					rs.getString(5),
+					rs.getString(6),
+					rs.getDate(7).toString(),
+					rs.getString(8)
+					
+				});
+				
+			rd.add(new ReportData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getString(8)));
+			
+			}
+			
+//			for(ReportData data : rd) {
+//				System.out.printf("%s %s %s %s %s %s %s %s", data.getSourceId(), data.getSourceName(), data.getExposedId(), data.getExposedName(), data.getAge(), data.getPhone(), data.getExposureDate(), data.getLocation());
+//				System.out.println();
+//			}
+			
+		return model;
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+				
+		return null;				
+				
+	}
 	
 	public boolean addResult(String personId, int clinicId, String result, Date dateTested, String condition) {
 		boolean successful = false;

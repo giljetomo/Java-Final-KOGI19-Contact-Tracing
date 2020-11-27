@@ -1,5 +1,6 @@
 package kogi19.main;
 
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -45,6 +46,7 @@ import javax.swing.DefaultComboBoxModel;
 public class MainScreen extends JFrame {
 
 	private String sourcePersonId;
+	private String testResult;
 	private JPanel contentPane;
 	DatabaseHandler dbhandler = null;
 	private JPanel panelLogInUC0;
@@ -95,7 +97,7 @@ public class MainScreen extends JFrame {
 	private JDateChooser dateChooserAddIndividual;
 	private JPanel panelAddTestResult;
 	private JLabel lblPassword_3_4;
-	private JButton btnCancelChangePassword_3;
+	private JButton btnCancelAddTestResult;
 	private JButton btnAdd_2;
 	private JLabel lblPassword_2_3;
 	private JLabel lblNewLabel_1_3;
@@ -115,7 +117,6 @@ public class MainScreen extends JFrame {
 	private JLabel lblNewLabel_1_5;
 	private JTextField tfAddressAddClinic;
 	private JComboBox ComboBoxClinicName;
-	private JLabel lblBranding;
 	private JPanel panelExposedIndividualsPortal;
 	private JButton btnAddIndividualToExistingLocation;
 	private JButton btnCancelSystem_1;
@@ -137,6 +138,15 @@ public class MainScreen extends JFrame {
 	private JComboBox ComboBoxLocationExisting;
 	private JComboBox ComboBoxExposedIndividualExisting;
 	private JDateChooser dateChooserDateOfExposure;
+	private JLabel branding;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_3;
+	private JLabel lblNewLabel_4;
+	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_6;
+	private JLabel lblNewLabel_8;
+	private JLabel lblNewLabel_10;
 
 	/**
 	 * Launch the application.
@@ -184,7 +194,7 @@ public class MainScreen extends JFrame {
 		
 		JButton btnExit = new JButton("EXIT");
 		btnExit.setForeground(new Color(0, 0, 0));
-		btnExit.setBounds(89, 423, 131, 39);
+		btnExit.setBounds(90, 452, 131, 39);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -193,7 +203,7 @@ public class MainScreen extends JFrame {
 		btnExit.setFont(new Font("Verdana", Font.BOLD, 14));
 		
 		JButton btnLogIn = new JButton("LOG IN");
-		btnLogIn.setBounds(247, 423, 131, 39);
+		btnLogIn.setBounds(248, 452, 131, 39);
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//remember to separate login for superuser and regular
@@ -215,8 +225,8 @@ public class MainScreen extends JFrame {
 		btnLogIn.setFont(new Font("Verdana", Font.BOLD, 14));
 		
 		panelUsername = new JPanel();
-		panelUsername.setBounds(67, 207, 336, 79);
-		panelUsername.setBackground(new Color(176, 224, 230));
+		panelUsername.setBounds(63, 247, 336, 79);
+		panelUsername.setBackground(new Color(153, 204, 204));
 		panelUsername.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Username", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "USERNAME", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		 ((javax.swing.border.TitledBorder) panelUsername.getBorder()).setTitleFont(new Font("Verdana", Font.PLAIN, 16));
 		
@@ -234,8 +244,8 @@ public class MainScreen extends JFrame {
 		panelPassword = new JPanel();
 		panelPassword.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Password", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "PASSWORD", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		((javax.swing.border.TitledBorder) panelPassword.getBorder()).setTitleFont(new Font("Verdana", Font.PLAIN, 16));
-		panelPassword.setBackground(new Color(176, 224, 230));
-		panelPassword.setBounds(67, 306, 336, 79);
+		panelPassword.setBackground(new Color(153, 204, 204));
+		panelPassword.setBounds(63, 327, 336, 79);
 		panelLogInUC0.add(panelPassword);
 		panelPassword.setLayout(null);
 		
@@ -244,11 +254,17 @@ public class MainScreen extends JFrame {
 		tfPassword.setFont(new Font("Verdana", Font.PLAIN, 16));
 		panelPassword.add(tfPassword);
 		
+		branding = new JLabel("");
+		branding.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		branding.setBounds(0, 0, 463, 544);
+		panelLogInUC0.add(branding);
+		
 		panelSuperUserUC1 = new JPanel();
 		panelSuperUserUC1.setBackground(Color.WHITE);
 		layeredPane.add(panelSuperUserUC1, "name_50771646590100");
 		
 		btnAddNewAdmin = new JButton("Add New Admin");
+		btnAddNewAdmin.setBounds(124, 170, 220, 54);
 		btnAddNewAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelAddNewAdmin);
@@ -257,6 +273,7 @@ public class MainScreen extends JFrame {
 		btnAddNewAdmin.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnEnterTheSystem = new JButton("System Portal");
+		btnEnterTheSystem.setBounds(124, 242, 220, 54);
 		btnEnterTheSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelSystemPortal);
@@ -265,6 +282,7 @@ public class MainScreen extends JFrame {
 		btnEnterTheSystem.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnChangePasswordSU = new JButton("Change Password");
+		btnChangePasswordSU.setBounds(124, 314, 220, 54);
 		btnChangePasswordSU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelChangePasswordUC12);	
@@ -276,44 +294,30 @@ public class MainScreen extends JFrame {
 		btnChangePasswordSU.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnLogout = new JButton("Logout");
+		btnLogout.setBounds(124, 386, 220, 54);
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelLogInUC0);
 			}
 		});
 		btnLogout.setFont(new Font("Verdana", Font.BOLD, 18));
-		GroupLayout gl_panelSuperUserUC1 = new GroupLayout(panelSuperUserUC1);
-		gl_panelSuperUserUC1.setHorizontalGroup(
-			gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelSuperUserUC1.createSequentialGroup()
-					.addContainerGap(124, Short.MAX_VALUE)
-					.addGroup(gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnAddNewAdmin, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-						.addComponent(btnEnterTheSystem, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnChangePasswordSU, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnLogout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(119))
-		);
-		gl_panelSuperUserUC1.setVerticalGroup(
-			gl_panelSuperUserUC1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelSuperUserUC1.createSequentialGroup()
-					.addContainerGap(111, Short.MAX_VALUE)
-					.addComponent(btnAddNewAdmin, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnEnterTheSystem, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnChangePasswordSU, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(104))
-		);
-		panelSuperUserUC1.setLayout(gl_panelSuperUserUC1);
+		panelSuperUserUC1.setLayout(null);
+		panelSuperUserUC1.add(btnAddNewAdmin);
+		panelSuperUserUC1.add(btnEnterTheSystem);
+		panelSuperUserUC1.add(btnChangePasswordSU);
+		panelSuperUserUC1.add(btnLogout);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel.setBounds(2, 0, 463, 544);
+		panelSuperUserUC1.add(lblNewLabel);
 		
 		panelRegularUser = new JPanel();
 		panelRegularUser.setBackground(Color.WHITE);
 		layeredPane.add(panelRegularUser, "name_54442385767900");
 		
 		btnEnterTheSystem_1 = new JButton("System Portal");
+		btnEnterTheSystem_1.setBounds(122, 241, 215, 54);
 		btnEnterTheSystem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelSystemPortal);
@@ -322,6 +326,7 @@ public class MainScreen extends JFrame {
 		btnEnterTheSystem_1.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnChangePasswordRU = new JButton("Change Password");
+		btnChangePasswordRU.setBounds(122, 313, 215, 54);
 		btnChangePasswordRU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelChangePasswordUC12);
@@ -333,35 +338,22 @@ public class MainScreen extends JFrame {
 		btnChangePasswordRU.setFont(new Font("Verdana", Font.BOLD, 18));
 		
 		btnLogout_1 = new JButton("Logout");
+		btnLogout_1.setBounds(122, 385, 215, 54);
 		btnLogout_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel(panelLogInUC0);
 			}
 		});
 		btnLogout_1.setFont(new Font("Verdana", Font.BOLD, 18));
-		GroupLayout gl_panelRegularUser = new GroupLayout(panelRegularUser);
-		gl_panelRegularUser.setHorizontalGroup(
-			gl_panelRegularUser.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelRegularUser.createSequentialGroup()
-					.addContainerGap(144, Short.MAX_VALUE)
-					.addGroup(gl_panelRegularUser.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnEnterTheSystem_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnChangePasswordRU, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnLogout_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(126))
-		);
-		gl_panelRegularUser.setVerticalGroup(
-			gl_panelRegularUser.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelRegularUser.createSequentialGroup()
-					.addContainerGap(182, Short.MAX_VALUE)
-					.addComponent(btnEnterTheSystem_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnChangePasswordRU, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnLogout_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addGap(105))
-		);
-		panelRegularUser.setLayout(gl_panelRegularUser);
+		panelRegularUser.setLayout(null);
+		panelRegularUser.add(btnEnterTheSystem_1);
+		panelRegularUser.add(btnChangePasswordRU);
+		panelRegularUser.add(btnLogout_1);
+		
+		lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_2.setBounds(0, 0, 463, 544);
+		panelRegularUser.add(lblNewLabel_2);
 		
 		panelChangePasswordUC12 = new JPanel();
 		panelChangePasswordUC12.setBackground(Color.WHITE);
@@ -440,6 +432,11 @@ public class MainScreen extends JFrame {
 		panelChangePasswordUC12.add(pf_newRetypedPassword);
 		panelChangePasswordUC12.add(btnCancelChangePassword);
 		panelChangePasswordUC12.add(btnLogIn_1);
+		
+		lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_3.setBounds(-1, 0, 466, 544);
+		panelChangePasswordUC12.add(lblNewLabel_3);
 		
 		panelAddNewAdmin = new JPanel();
 		panelAddNewAdmin.setBackground(Color.WHITE);
@@ -526,6 +523,11 @@ public class MainScreen extends JFrame {
 		panelAddNewAdmin.add(tfUsernameAddNewAdmin);
 		tfUsernameAddNewAdmin.setColumns(10);
 		
+		lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_4.setBounds(0, 0, 466, 544);
+		panelAddNewAdmin.add(lblNewLabel_4);
+		
 		panelSystemPortal = new JPanel();
 		panelSystemPortal.setBackground(Color.WHITE);
 		layeredPane.add(panelSystemPortal, "name_2544669003617475");
@@ -553,6 +555,13 @@ public class MainScreen extends JFrame {
 		btnAddExposedIndividuals.setFont(new Font("Verdana", Font.BOLD, 17));
 		
 		btnGenerateReports = new JButton("Generate Reports");
+		btnGenerateReports.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrame reportsFrame = new JFrameReports();
+				reportsFrame.setVisible(true);
+			}
+		});
 		btnGenerateReports.setBounds(104, 317, 271, 54);
 		btnGenerateReports.setFont(new Font("Verdana", Font.BOLD, 18));
 		
@@ -601,6 +610,11 @@ public class MainScreen extends JFrame {
 		panelSystemPortal.add(btnAddClinic);
 		panelSystemPortal.add(btnAddTestResult);
 		panelSystemPortal.add(btnAddIndividual);
+		
+		lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_5.setBounds(-3, -1, 467, 546);
+		panelSystemPortal.add(lblNewLabel_5);
 		
 		panelAddIndividual = new JPanel();
 		panelAddIndividual.setBackground(Color.WHITE);
@@ -700,27 +714,80 @@ public class MainScreen extends JFrame {
 		dateChooserAddIndividual.setBounds(178, 188, 231, 40);
 		panelAddIndividual.add(dateChooserAddIndividual);
 		
+		lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_6.setBounds(1, -2, 462, 546);
+		panelAddIndividual.add(lblNewLabel_6);
+		
 		panelAddTestResult = new JPanel();
 		panelAddTestResult.setBackground(Color.WHITE);
-		panelAddTestResult.setLayout(null);
 		layeredPane.add(panelAddTestResult, "name_2551243279798657");
+		panelAddTestResult.setLayout(null);
+		
+		ComboBoxPersonIdAddTestResult = new JComboBox();
+		ComboBoxPersonIdAddTestResult.setBounds(182, 139, 231, 44);
+		ComboBoxPersonIdAddTestResult.setFont(new Font("Verdana", Font.PLAIN, 14));
+		panelAddTestResult.add(ComboBoxPersonIdAddTestResult);
+		
+		dateChooserTestDate = new JDateChooser();
+		dateChooserTestDate.setBounds(182, 312, 231, 37);
+		dateChooserTestDate.setFont(new Font("Verdana", Font.PLAIN, 13));
+		panelAddTestResult.add(dateChooserTestDate);
+		
+		ComboBoxSymptom = new JComboBox();
+		ComboBoxSymptom.setBounds(182, 256, 231, 44);
+		ComboBoxSymptom.setModel(new DefaultComboBoxModel(new String[] {"Symptomatic", "Asymptomatic"}));
+		ComboBoxSymptom.setFont(new Font("Verdana", Font.PLAIN, 14));
+		panelAddTestResult.add(ComboBoxSymptom);
+		
+		ComboBoxResultAddResult = new JComboBox();
+		ComboBoxResultAddResult.setBounds(182, 204, 231, 44);
+		//this section 
+
+//		ComboBoxResultAddResult.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if (ComboBoxResultAddResult.getSelectedItem().toString().equalsIgnoreCase("Negative")) {
+//					ComboBoxSymptom.setSelectedIndex(-1);
+//					ComboBoxSymptom.setEnabled(false);
+//					panelAddTestResult.add(ComboBoxSymptom);
+//					testResult = "N";
+//	
+//				} else {
+//					ComboBoxSymptom.setEnabled(true);
+//					panelAddTestResult.add(ComboBoxSymptom);
+//					testResult = "P";
+//					
+//				}
+//			}
+//		});
+		
+		ComboBoxResultAddResult.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ComboBoxResultAddResult.setModel(new DefaultComboBoxModel(new String[] {"Positive", "Negative"}));
+		panelAddTestResult.add(ComboBoxResultAddResult);
+		
+		
+		ComboBoxClinicName = new JComboBox();
+		ComboBoxClinicName.setBounds(182, 75, 231, 44);
+		ComboBoxClinicName.setFont(new Font("Verdana", Font.PLAIN, 14));
+		panelAddTestResult.add(ComboBoxClinicName);
 		
 		lblPassword_3_4 = new JLabel("Result");
-		lblPassword_3_4.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_4.setBounds(51, 209, 78, 35);
+		lblPassword_3_4.setFont(new Font("Verdana", Font.PLAIN, 18));
 		panelAddTestResult.add(lblPassword_3_4);
 		
-		btnCancelChangePassword_3 = new JButton("CANCEL");
-		btnCancelChangePassword_3.addActionListener(new ActionListener() {
+		btnCancelAddTestResult = new JButton("CANCEL");
+		btnCancelAddTestResult.setBounds(91, 396, 126, 54);
+		btnCancelAddTestResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changePanelByUserType(userType);
+				switchPanel(panelSystemPortal);
 			}
 		});
-		btnCancelChangePassword_3.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnCancelChangePassword_3.setBounds(91, 396, 126, 54);
-		panelAddTestResult.add(btnCancelChangePassword_3);
+		btnCancelAddTestResult.setFont(new Font("Verdana", Font.BOLD, 18));
+		panelAddTestResult.add(btnCancelAddTestResult);
 		
 		btnAdd_2 = new JButton("ADD");
+		btnAdd_2.setBounds(261, 397, 127, 54);
 		btnAdd_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			// clinid_id, result, testingDate, person_id
@@ -732,8 +799,8 @@ public class MainScreen extends JFrame {
 				Date testDate = Date.valueOf(sdf.format(dateChooserTestDate.getDate()));
 				int personNameIndex = ComboBoxPersonIdAddTestResult.getSelectedIndex();
 				String personId =  dbhandler.getPersonId(personNameIndex);
-				String condition = Objects.isNull(ComboBoxSymptom.getSelectedItem().toString()) ? null : ComboBoxSymptom.getSelectedItem().toString();
 				
+				String condition = Objects.isNull(ComboBoxSymptom.getSelectedItem().toString()) ? null : ComboBoxSymptom.getSelectedItem().toString();
 				String result = String.valueOf(ComboBoxResultAddResult.getSelectedItem()).equalsIgnoreCase("Positive") ? "P" : "N";
 				
 				if(dbhandler.addResult(personId, clinicId, result, testDate, condition)) {
@@ -743,74 +810,31 @@ public class MainScreen extends JFrame {
 					JOptionPane.showMessageDialog(null, "Try again!", "System Error", JOptionPane.ERROR_MESSAGE);
 				
 				
-		
-				
 			}
 		});
 		contentPane.setLayout(null);
 		btnAdd_2.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnAdd_2.setBounds(261, 397, 127, 54);
 		panelAddTestResult.add(btnAdd_2);
 		
 		lblPassword_2_3 = new JLabel("Test Date");
-		lblPassword_2_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_2_3.setBounds(51, 319, 104, 24);
+		lblPassword_2_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		panelAddTestResult.add(lblPassword_2_3);
 		
 		lblNewLabel_1_3 = new JLabel("Clinic Name");
-		lblNewLabel_1_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblNewLabel_1_3.setBounds(51, 87, 115, 25);
+		lblNewLabel_1_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		panelAddTestResult.add(lblNewLabel_1_3);
 		
-		ComboBoxPersonIdAddTestResult = new JComboBox();
-		ComboBoxPersonIdAddTestResult.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxPersonIdAddTestResult.setBounds(182, 139, 231, 44);
-		panelAddTestResult.add(ComboBoxPersonIdAddTestResult);
-		
 		lblPassword_3_5 = new JLabel("Person ID");
-		lblPassword_3_5.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_5.setBounds(51, 149, 104, 25);
+		lblPassword_3_5.setFont(new Font("Verdana", Font.PLAIN, 18));
 		panelAddTestResult.add(lblPassword_3_5);
 		
-		dateChooserTestDate = new JDateChooser();
-		dateChooserTestDate.setBounds(182, 312, 231, 37);
-		dateChooserTestDate.setFont(new Font("Verdana", Font.PLAIN, 13));
-		panelAddTestResult.add(dateChooserTestDate);
-		
-		ComboBoxResultAddResult = new JComboBox();
-		ComboBoxResultAddResult.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (ComboBoxResultAddResult.getSelectedItem().toString().equalsIgnoreCase("Negative")) {
-					ComboBoxSymptom.setSelectedIndex(-1);
-					ComboBoxSymptom.setEnabled(false);
-					panelAddTestResult.add(ComboBoxSymptom);
-				} else {
-					ComboBoxSymptom.setEnabled(true);
-					panelAddTestResult.add(ComboBoxSymptom);
-					
-				}
-			}
-		});
-		ComboBoxResultAddResult.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxResultAddResult.setModel(new DefaultComboBoxModel(new String[] {"Positive", "Negative"}));
-		ComboBoxResultAddResult.setBounds(182, 204, 231, 44);
-		panelAddTestResult.add(ComboBoxResultAddResult);
-		
-		ComboBoxClinicName = new JComboBox();
-		ComboBoxClinicName.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxClinicName.setBounds(182, 83, 231, 44);
-		panelAddTestResult.add(ComboBoxClinicName);
-		
 		lblPassword_3_6 = new JLabel("Condition");
-		lblPassword_3_6.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_6.setBounds(51, 261, 104, 35);
+		lblPassword_3_6.setFont(new Font("Verdana", Font.PLAIN, 18));
 		panelAddTestResult.add(lblPassword_3_6);
-		
-		ComboBoxSymptom = new JComboBox();
-		ComboBoxSymptom.setModel(new DefaultComboBoxModel(new String[] {"Symptomatic", "Asymptomatic"}));
-		ComboBoxSymptom.setFont(new Font("Verdana", Font.PLAIN, 14));
-		ComboBoxSymptom.setBounds(182, 256, 231, 44);
-		panelAddTestResult.add(ComboBoxSymptom);
 		
 		contentPane.add(layeredPane);
 		
@@ -880,6 +904,11 @@ public class MainScreen extends JFrame {
 		tfAddressAddClinic.setColumns(10);
 		tfAddressAddClinic.setBounds(137, 171, 286, 44);
 		panelAddClinic.add(tfAddressAddClinic);
+		
+		lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_8.setBounds(-1, 1, 466, 542);
+		panelAddClinic.add(lblNewLabel_8);
 		
 		panelExposedIndividualsPortal = new JPanel();
 		panelExposedIndividualsPortal.setLayout(null);
@@ -973,7 +1002,7 @@ public class MainScreen extends JFrame {
 		
 		lblNewLabel_1_6 = new JLabel("<html>Location<br>Name</html>");
 		lblNewLabel_1_6.setFont(new Font("Verdana", Font.PLAIN, 18));
-		lblNewLabel_1_6.setBounds(33, 181, 126, 54);
+		lblNewLabel_1_6.setBounds(51, 174, 96, 54);
 		panelAddLocation.add(lblNewLabel_1_6);
 		
 		tfLocationNameAddLocation = new JTextField();
@@ -994,15 +1023,20 @@ public class MainScreen extends JFrame {
 		panelAddLocation.add(tfAddressAddLocation);
 		
 		lblNewLabel_1_8 = new JLabel("REGISTER LOCATION");
-		lblNewLabel_1_8.setFont(new Font("Verdana", Font.PLAIN, 18));
-		lblNewLabel_1_8.setBounds(120, 33, 195, 25);
+		lblNewLabel_1_8.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblNewLabel_1_8.setBounds(129, 19, 261, 39);
 		panelAddLocation.add(lblNewLabel_1_8);
 		
 		lblSourceIndividualName = new JLabel("Person Name");
 		lblSourceIndividualName.setForeground(new Color(51, 51, 204));
-		lblSourceIndividualName.setFont(new Font("Verdana", Font.PLAIN, 18));
-		lblSourceIndividualName.setBounds(105, 92, 237, 25);
+		lblSourceIndividualName.setFont(new Font("Verdana", Font.PLAIN, 20));
+		lblSourceIndividualName.setBounds(47, 85, 377, 33);
 		panelAddLocation.add(lblSourceIndividualName);
+		
+		lblNewLabel_10 = new JLabel("");
+		lblNewLabel_10.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/images/background_final.jpg")));
+		lblNewLabel_10.setBounds(0, 0, 463, 545);
+		panelAddLocation.add(lblNewLabel_10);
 		
 		panelAddIndividualToExistingLocation = new JPanel();
 		panelAddIndividualToExistingLocation.setLayout(null);
@@ -1073,6 +1107,7 @@ public class MainScreen extends JFrame {
 		panelAddIndividualToExistingLocation.add(ComboBoxExposedIndividualExisting);
 		
 		lblSourceIndividualExisting = new JLabel("Source Individual");
+		lblSourceIndividualExisting.setForeground(Color.BLUE);
 		lblSourceIndividualExisting.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblSourceIndividualExisting.setBounds(104, 67, 283, 25);
 		panelAddIndividualToExistingLocation.add(lblSourceIndividualExisting);
@@ -1080,18 +1115,19 @@ public class MainScreen extends JFrame {
 		JLabel lblPassword_2_2_1 = new JLabel("<html>Date of<br>Exposure</html>");
 		lblPassword_2_2_1.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_2_2_1.setBounds(84, 325, 92, 54);
-		panelAddIndividualToExistingLocation.add(lblPassword_2_2_1);
 		
 		dateChooserDateOfExposure = new JDateChooser();
 		dateChooserDateOfExposure.getCalendarButton().setFont(new Font("Verdana", Font.PLAIN, 18));
 		dateChooserDateOfExposure.setBounds(189, 325, 231, 40);
 		panelAddIndividualToExistingLocation.add(dateChooserDateOfExposure);
 		
+		JLabel lblBranding = new JLabel("");
+		lblBranding.setIcon(new ImageIcon(MainScreen.class.getResource("/kogi19/main/branding.png")));
+		lblBranding.setBounds(0, 0, 374, 544);
+		contentPane.add(lblBranding);
+		
 		
 		ImageIcon img = new ImageIcon("branding1.png");
-		lblBranding = new JLabel(new ImageIcon(MainScreen.class.getResource("/kogi19/main/branding.jpg")));
-		lblBranding.setBounds(0, 0, 371, 549);
-		contentPane.add(lblBranding);
 		
 	}
 	
