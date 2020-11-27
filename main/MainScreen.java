@@ -1089,7 +1089,7 @@ public class MainScreen extends JFrame {
 		
 		
 		ImageIcon img = new ImageIcon("branding1.png");
-		lblBranding = new JLabel(new ImageIcon(MainScreen.class.getResource("/kogi19/main/branding.jpg")));
+		lblBranding = new JLabel(new ImageIcon(MainScreen.class.getResource("/kogi19/main/branding.png")));
 		lblBranding.setBounds(0, 0, 371, 549);
 		contentPane.add(lblBranding);
 		
