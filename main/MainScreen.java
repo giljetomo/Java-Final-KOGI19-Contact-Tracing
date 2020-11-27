@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -147,6 +148,7 @@ public class MainScreen extends JFrame {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_8;
 	private JLabel lblNewLabel_10;
+	private JButton btnCancelChangePassword_3;
 
 	/**
 	 * Launch the application.
@@ -621,6 +623,28 @@ public class MainScreen extends JFrame {
 		panelAddIndividual.setLayout(null);
 		layeredPane.add(panelAddIndividual, "name_2545465710490669");
 		
+		btnCancelChangePassword_3 = new JButton("Batch Insert");
+		btnCancelChangePassword_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					BatchInsertIndividual batchInsert = new BatchInsertIndividual();
+					int totalAdded = batchInsert.batchInsert();
+					if(totalAdded > 0) {
+						JOptionPane.showMessageDialog(null, totalAdded + " record(s) added", "Information", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Batch Insert Failed. Try again!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnCancelChangePassword_3.setFont(new Font("Verdana", Font.BOLD, 18));
+		btnCancelChangePassword_3.setBounds(158, 471, 178, 35);
+		panelAddIndividual.add(btnCancelChangePassword_3);
+		
 		lblPassword_3_2 = new JLabel("Contact");
 		lblPassword_3_2.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lblPassword_3_2.setBounds(73, 341, 92, 25);
@@ -633,7 +657,7 @@ public class MainScreen extends JFrame {
 			}
 		});
 		btnCancelChangePassword_2.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnCancelChangePassword_2.setBounds(97, 413, 127, 54);
+		btnCancelChangePassword_2.setBounds(95, 395, 127, 54);
 		panelAddIndividual.add(btnCancelChangePassword_2);
 		
 		btnAdd_1 = new JButton("ADD");
@@ -658,7 +682,7 @@ public class MainScreen extends JFrame {
 			}
 		});
 		btnAdd_1.setFont(new Font("Verdana", Font.BOLD, 18));
-		btnAdd_1.setBounds(269, 413, 127, 54);
+		btnAdd_1.setBounds(267, 395, 127, 54);
 		panelAddIndividual.add(btnAdd_1);
 		
 		lblPassword_1_2 = new JLabel("Gender");

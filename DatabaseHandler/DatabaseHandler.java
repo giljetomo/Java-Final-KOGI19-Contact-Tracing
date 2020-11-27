@@ -53,7 +53,7 @@ public class DatabaseHandler {
 			}
 			
 		} catch (Exception e) {
-//			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		return successful;
 	}
@@ -70,7 +70,7 @@ public class DatabaseHandler {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -89,7 +89,7 @@ public class DatabaseHandler {
 			}
 						
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return 0;
@@ -111,7 +111,7 @@ public class DatabaseHandler {
 			return individuals;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -132,7 +132,7 @@ public class DatabaseHandler {
 			return locations;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -154,7 +154,7 @@ public class DatabaseHandler {
 				successful = true;			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		return successful;
 	}
@@ -173,7 +173,7 @@ public class DatabaseHandler {
 			return personId;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -192,7 +192,7 @@ public class DatabaseHandler {
 			return individuals;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -212,7 +212,7 @@ public class DatabaseHandler {
 			
 			return data;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -232,7 +232,7 @@ public class DatabaseHandler {
 			
 			return data;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 		return null;
@@ -249,7 +249,7 @@ public class DatabaseHandler {
 			int record = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 	}
 	
@@ -272,7 +272,7 @@ public class DatabaseHandler {
 			
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 				
 		return null;				
@@ -326,7 +326,7 @@ public class DatabaseHandler {
 			
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		
 				
@@ -359,7 +359,7 @@ public class DatabaseHandler {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		return successful;
 	}
@@ -376,7 +376,7 @@ public class DatabaseHandler {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return null;
@@ -394,7 +394,7 @@ public class DatabaseHandler {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return -1;
@@ -413,7 +413,7 @@ public class DatabaseHandler {
 			return clinics;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return null;
@@ -441,7 +441,7 @@ public class DatabaseHandler {
 				successful = true;			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return successful;
 	}
@@ -464,7 +464,7 @@ public class DatabaseHandler {
 			} 
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return isFound;
@@ -485,7 +485,7 @@ public class DatabaseHandler {
 			return individuals;
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return null;
@@ -501,7 +501,7 @@ public class DatabaseHandler {
 			return "KG00" + id; 
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return null;
@@ -524,7 +524,7 @@ public class DatabaseHandler {
 				successful = true;			
 			
 		} catch (Exception e) {
-//			e.printStackTrace();
+//			// e.printStackTrace();
 		}
 		return successful;
 		
@@ -544,7 +544,7 @@ public class DatabaseHandler {
 				successful = true;			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return successful;
 	}
@@ -564,7 +564,7 @@ public class DatabaseHandler {
 				successful = true;			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return successful;
@@ -591,7 +591,7 @@ public class DatabaseHandler {
 			} 
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return isFound;
@@ -615,7 +615,7 @@ public class DatabaseHandler {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return type;
@@ -640,7 +640,7 @@ public class DatabaseHandler {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		
 		return noData;
@@ -651,7 +651,7 @@ public class DatabaseHandler {
 		try {
 			conn = DriverManager.getConnection(DBConstants.CONN_STRING, DBConstants.USER, DBConstants.PASSWORD);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 }

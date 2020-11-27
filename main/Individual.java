@@ -36,9 +36,9 @@ public class Individual {
 
 
 	public void setGender(String gender) {
-		if (gender.equalsIgnoreCase("Male")) {
+		if (gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("M")) {
 			this.gender = "M";
-		} else if(gender.equalsIgnoreCase("Female")) {
+		} else if(gender.equalsIgnoreCase("Female") || gender.equalsIgnoreCase("F")) {
 			this.gender = "F";
 		}
 		
