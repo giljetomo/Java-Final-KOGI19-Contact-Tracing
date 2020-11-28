@@ -259,7 +259,7 @@ public class DatabaseHandler {
 		
 //		source_id, source name, exposed_id, exposed_name, age, phone, exposure_date, location
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id");
+			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id order by a.si_person_id");
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

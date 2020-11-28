@@ -36,7 +36,7 @@ public class BatchInsertIndividual {
 		  int totalAdded = 0;
 //		  BufferedReader br = new BufferedReader(new FileReader("/Users/124090/Documents/School/WMAD/TextFileTest/src/test.csv"));
 		  //file outside src folder
-		  BufferedReader br = new BufferedReader(new FileReader("test.csv"));
+		  BufferedReader br = new BufferedReader(new FileReader("file.csv"));
 		    String line = null;
 		    ArrayList<String> items = new ArrayList<>();
 		    ArrayList<Individual> persons = new ArrayList<>();
