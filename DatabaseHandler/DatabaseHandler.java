@@ -259,12 +259,12 @@ public class DatabaseHandler {
 		
 //		source_id, source name, exposed_id, exposed_name, age, phone, exposure_date, location
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id order by a.si_person_id");
+			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as 'SOURCE_ID', b.pname as 'SOURCE_NAME', a.ei_person_id as 'EI_ID', c.pname as 'EXPOSED_INDIVIDUAL', YEAR(CURDATE()) - YEAR(b.birthdate) AS 'AGE', c.contact as 'PHONE', a.exposure_date as 'EXPOSURE DATE', d.location_name as 'LOCATION', f.name as 'CLINIC NAME', e.result as 'RESULT' from exposed_individual a left join individual b on a.si_person_id = b.person_id left join individual c on a.ei_person_id = c.person_id inner join location d on a.location_id = d.location_id left join results e on a.ei_person_id = e.person_id left join clinic f on e.clinic_id = f.clinic_id order by a.si_person_id");
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 	
-			rd.add(new ReportData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getString(8)));
+			rd.add(new ReportData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getString(8), rs.getString(9), rs.getString(10)));
 			
 			}
 			
@@ -284,7 +284,8 @@ public class DatabaseHandler {
 		
 //		source_id, source name, exposed_id, exposed_name, age, phone, exposure_date, location
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id");
+//			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as source, c.pname, a.ei_person_id as exposed, b.pname, YEAR(CURDATE()) - YEAR(b.birthdate) AS age, b.contact as phone, a.exposure_date, d.location_name as location from exposed_individual a, individual b, individual c, location d where b.person_id = a.ei_person_id and a.si_person_id = c.person_id and a.location_id = d.location_id");
+			PreparedStatement pstmt = conn.prepareStatement("select a.si_person_id as 'SOURCE_ID', b.pname as 'SOURCE_NAME', a.ei_person_id as 'EI_ID', c.pname as 'EXPOSED_INDIVIDUAL', YEAR(CURDATE()) - YEAR(b.birthdate) AS 'AGE', c.contact as 'PHONE', a.exposure_date as 'EXPOSURE DATE', d.location_name as 'LOCATION', f.name as 'CLINIC NAME', e.result as 'RESULT' from exposed_individual a left join individual b on a.si_person_id = b.person_id left join individual c on a.ei_person_id = c.person_id inner join location d on a.location_id = d.location_id left join results e on a.ei_person_id = e.person_id left join clinic f on e.clinic_id = f.clinic_id order by a.si_person_id");
 			ResultSet rs = pstmt.executeQuery();
 			
 			DefaultTableModel model = new DefaultTableModel();
@@ -297,6 +298,8 @@ public class DatabaseHandler {
 			model.addColumn("PHONE");
 			model.addColumn("EXPOSURE DATE");
 			model.addColumn("LOCATION");
+			model.addColumn("CLINIC NAME");
+			model.addColumn("RESULT");
 			
 
 			while(rs.next()) {
@@ -309,11 +312,13 @@ public class DatabaseHandler {
 					rs.getString(5),
 					rs.getString(6),
 					rs.getDate(7).toString(),
-					rs.getString(8)
+					rs.getString(8),
+					rs.getString(9),
+					rs.getString(10)
 					
 				});
 				
-			rd.add(new ReportData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getString(8)));
+			rd.add(new ReportData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getString(8), rs.getString(9), rs.getString(10)));
 			
 			}
 			

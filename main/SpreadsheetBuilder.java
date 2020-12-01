@@ -22,8 +22,7 @@ public class SpreadsheetBuilder {
 	    	 boolean isSuccessful = false;
 	    	 dbhandler = DatabaseHandler.getInstance();
 	    	 ArrayList<ReportData> dataList = dbhandler.getArrayListOfDataForReport();
-//	    	 source_id, source name, exposed_id, exposed_name, age, phone, exposure_date, location
-	    	 String[] columns = {"SOURCE_ID", "SOURCE NAME", "EXPOSED ID",  "EXPOSED NAME", "AGE", "PHONE", "EXPOSURE DATE", "LOCATION"};
+	    	 String[] columns = {"SOURCE_ID", "SOURCE NAME", "EXPOSED ID",  "EXPOSED NAME", "AGE", "PHONE", "EXPOSURE DATE", "LOCATION", "CLINIC NAME", "RESULT"};
 	         XSSFWorkbook workbook = new XSSFWorkbook();
 	         XSSFSheet sheet = workbook.createSheet("List of Exposed Individuals by Source");
 	            
@@ -46,6 +45,9 @@ public class SpreadsheetBuilder {
 	        	 row.createCell(5).setCellValue(data.getPhone());
 	        	 row.createCell(6).setCellValue(data.getExposureDate());
 	        	 row.createCell(7).setCellValue(data.getLocation()); 
+	        	 row.createCell(8).setCellValue(data.getClinicName()); 
+	        	 row.createCell(9).setCellValue(data.getResult()); 
+	        	 
 	         }
 	         
 	         for(int i = 0; i <columns.length; i++) {

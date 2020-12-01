@@ -53,18 +53,39 @@ create table exposed_individual (
 
 -- GENERATING THE LIST OF EXPOSED INDIVIDUALS BY SOURCE PERSON
 
-select a.si_person_id as source, c.pname, 
-a.ei_person_id as exposed, b.pname,
-YEAR(CURDATE()) - YEAR(b.birthdate) AS age,
-b.contact as phone,
-a.exposure_date,
-d.location_name as location
-from exposed_individual a, individual b, individual c, location d
-where b.person_id = a.ei_person_id and
-a.si_person_id = c.person_id and
-a.location_id = d.location_id
-order by a.si_person_id
-;
+select a.si_person_id as "SOURCE_ID", b.pname as "SOURCE_NAME", 
+a.ei_person_id as "EI_ID", c.pname as "EXPOSED_INDIVIDUAL",
+YEAR(CURDATE()) - YEAR(b.birthdate) AS "AGE", c.contact as "PHONE",
+a.exposure_date as "EXPOSURE DATE", 
+d.location_name as "LOCATION", 
+f.name as "CLINIC NAME" , e.result as "RESULT"
+from exposed_individual a
+left join individual b
+on a.si_person_id = b.person_id
+left join individual c
+on a.ei_person_id = c.person_id
+inner join location d
+on a.location_id = d.location_id
+left join results e
+on a.ei_person_id = e.person_id
+left join clinic f
+on e.clinic_id = f.clinic_id
+order by a.si_person_id;
+
+-- *deprecated, for reference only
+-- select a.si_person_id as source, c.pname, 
+-- a.ei_person_id as exposed, b.pname,
+-- YEAR(CURDATE()) - YEAR(b.birthdate) AS age,
+-- b.contact as phone,
+-- a.exposure_date,
+-- d.location_name as location
+-- from exposed_individual a, individual b, individual c, location d
+-- where b.person_id = a.ei_person_id and
+-- a.si_person_id = c.person_id and
+-- a.location_id = d.location_id
+-- order by a.si_person_id
+-- ;
+
 
 /*ADDING INITIAL ADMINS*/
 -- insert into admin values ('superuser',md5('superuser'),'s');
