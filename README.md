@@ -1,4 +1,4 @@
-# KOGI 19 Contact Tracing System
+# KOGI-19 Contact Tracing System
 KOGI-19 aims to stop the virus from spreading and heal the world by tracking the source individuals and their exposed contacts.
 
 ## Workflow
