@@ -1,5 +1,5 @@
 # KOGI-19 Contact Tracing System
-KOGI-19 aims to stop the virus from spreading and heal the world by tracking the source individuals and their exposed contacts.
+KOGI-19 aims to stop the virus from spreading and heal the world by tracking the source individuals and their exposed contacts. Created with https://github.com/kojiokajima
 
 ## Workflow
 Register Individuals -> Register Clinic -> Register Test Result -> Add Exposed Individuals (Add Location(s) then Individual(s))
