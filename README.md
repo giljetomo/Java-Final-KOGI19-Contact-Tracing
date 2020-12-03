@@ -5,6 +5,8 @@ Register Individuals -> Register Clinic -> Register Test Result -> Add Exposed I
 
 ### Log In
 ![1  LogIn Screen](https://user-images.githubusercontent.com/69213274/100950339-fabd3080-34c0-11eb-9947-b0fc04b69ace.png)
+### Main Menu
+![Menu](https://user-images.githubusercontent.com/69213274/100952339-3ce87100-34c5-11eb-9ad5-7ddace6c387e.png)
 ### Register Indvidual
 ![2  Add Individual](https://user-images.githubusercontent.com/69213274/100950553-6b644d00-34c1-11eb-9f63-f49dc2f995b0.png)
 ### Register Clinic
